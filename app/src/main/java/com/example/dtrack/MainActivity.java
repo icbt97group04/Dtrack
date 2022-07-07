@@ -13,6 +13,7 @@ public class MainActivity extends AppCompatActivity {
     Button btn4;
     Button btn5;
     Button btn6;
+    Button btn7;
 
 
     @Override
