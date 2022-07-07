@@ -8,6 +8,7 @@ import android.widget.Button;
 public class MainActivity extends AppCompatActivity {
 
     Button btn1;
+    Button btn2;
 
 
     @Override
