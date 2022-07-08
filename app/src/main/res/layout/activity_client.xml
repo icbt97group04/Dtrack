@@ -19,6 +19,6 @@
         android:layout_height="wrap_content"
         android:background="?android:attr/windowBackground"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:menu="@menu/client_botton_navigation_menu" />
+        app:menu="@menu/client_bottom_navigation_menu" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
