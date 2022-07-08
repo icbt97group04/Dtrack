@@ -1,5 +1,6 @@
 package com.example.dtrack;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
@@ -11,6 +12,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationRequest;
@@ -60,29 +62,64 @@ public class DriverActivity extends AppCompatActivity  {
                     tv_sensor.setText("using towers and wifi now");
                 }
             }
-            void  updategps(){
-                fusedLocationProviderClient= LocationServices.getFusedLocationProviderClient(DriverActivity.this);
 
-                if(ActivityCompat.checkSelfPermission(DriverActivity.this, Manifest.permission.ACCESS_FINE_LOCATION)== PackageManager.PERMISSION_GRANTED){
-                //user give permisson
-                    fusedLocationProviderClient.getLastLocation().addOnSuccessListener(DriverActivity.this, new OnSuccessListener<Location>() {
-                        @Override
-                        public void onSuccess(Location location) {
+        });
+        updategps();
+    }
 
-                        }
-                    });
-                }else{
-                    if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.M){
+    private void updategps() {
+        fusedLocationProviderClient= LocationServices.getFusedLocationProviderClient(DriverActivity.this);
 
-                        requestPermissions( new String[]{Manifest.permission.ACCESS_FINE_LOCATION},99);
-                    }
-
+        if(ActivityCompat.checkSelfPermission(DriverActivity.this, Manifest.permission.ACCESS_FINE_LOCATION)== PackageManager.PERMISSION_GRANTED){
+            //user give permisson
+            fusedLocationProviderClient.getLastLocation().addOnSuccessListener(DriverActivity.this, new OnSuccessListener<Location>() {
+                @Override
+                public void onSuccess(Location location) {
+                    updateui(location);
 
                 }
+            });
+        }else{
+            if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.M){
 
+                requestPermissions( new String[]{Manifest.permission.ACCESS_FINE_LOCATION},99);
             }
-        });
 
+
+        }
+
+    }
+
+    private void updateui(Location location) {
+        tv_lat.setText(String.valueOf(location.getLatitude()));
+        tv_lon.setText(String.valueOf(location.getLongitude()));
+        tv_accuracy.setText(String.valueOf(location.getAccuracy()));
+        if(location.hasAltitude()){
+            tv_altitude.setText(String.valueOf(location.getAltitude()));
+        }else {
+            tv_altitude.setText("not available");
+        }
+        if(location.hasAltitude()){
+            tv_speed.setText(String.valueOf(location.getSpeed()));
+        }else {
+            tv_speed.setText("not available");
+        }
+
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode){
+            case 99:
+                if(grantResults[0]==PackageManager.PERMISSION_GRANTED){
+                    updategps();
+                } else{
+                    Toast.makeText(this,"Need persmisson",Toast.LENGTH_SHORT);
+                    finish();
+                }
+                break;
+        }
     }
 
 }
