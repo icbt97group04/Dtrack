@@ -15,55 +15,99 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.Priority;
 import com.google.android.gms.tasks.OnSuccessListener;
 
-public class DriverActivity extends AppCompatActivity  {
-    Switch sw_locationsupdates,sw_gps;
-    TextView tv_lat,tv_lon,tv_altitude,tv_accuracy,tv_speed, tv_sensor, tv_updates,tv_address;
-//location request
+public class DriverActivity extends AppCompatActivity {
+    Switch sw_locationsupdates, sw_gps;
+    TextView tv_lat, tv_lon, tv_altitude, tv_accuracy, tv_speed, tv_sensor, tv_updates, tv_address;
+    //location request
+    LocationCallback locationCallBack;
     LocationRequest locationRequest;
     FusedLocationProviderClient fusedLocationProviderClient;
+
     //goolgle api serverices for location
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_driver);
-        tv_lat= findViewById(R.id.tv_lat);
-        tv_lon= findViewById(R.id.tv_lon);
-        tv_altitude= findViewById(R.id.tv_altitude);
-        tv_accuracy= findViewById(R.id.tv_accuracy);
-        tv_speed= findViewById(R.id.tv_speed);
-        tv_sensor= findViewById(R.id.tv_sensor);
-        tv_updates= findViewById(R.id.tv_updates);
-        tv_address= findViewById(R.id.tv_address);
-        sw_locationsupdates=findViewById(R.id.sw_locationsupdates);
-        sw_gps=findViewById(R.id.sw_gps);
+        tv_lat = findViewById(R.id.tv_lat);
+        tv_lon = findViewById(R.id.tv_lon);
+        tv_altitude = findViewById(R.id.tv_altitude);
+        tv_accuracy = findViewById(R.id.tv_accuracy);
+        tv_speed = findViewById(R.id.tv_speed);
+        tv_sensor = findViewById(R.id.tv_sensor);
+        tv_updates = findViewById(R.id.tv_updates);
+        tv_address = findViewById(R.id.tv_address);
+        sw_locationsupdates = findViewById(R.id.sw_locationsupdates);
+        sw_gps = findViewById(R.id.sw_gps);
 
         //setting properties for locatoinrequest
         locationRequest = LocationRequest.create();
         //location request update interval
-        locationRequest.setInterval(1000*30);
-        locationRequest.setFastestInterval(1000*5);
+        locationRequest.setInterval(1000 * 30);
+        locationRequest.setFastestInterval(1000 * 5);
+        locationCallBack = new LocationCallback() {
+            @Override
+            public void onLocationResult(@NonNull LocationResult locationResult) {
+                super.onLocationResult(locationResult);
+                Location location=locationResult.getLastLocation();
+                updateui(location);
+            }
+        };
         locationRequest.setPriority(Priority.PRIORITY_BALANCED_POWER_ACCURACY);
 
         sw_gps.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(sw_gps.isChecked()){
+                if (sw_gps.isChecked()) {
                     locationRequest.setPriority(Priority.PRIORITY_HIGH_ACCURACY);
                     tv_sensor.setText("using gps now");
-                }
-                else{
+                } else {
                     locationRequest.setPriority(Priority.PRIORITY_BALANCED_POWER_ACCURACY);
                     tv_sensor.setText("using towers and wifi now");
                 }
             }
 
         });
+        updategps();
+
+        //location update
+        sw_locationsupdates.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (sw_locationsupdates.isChecked()) {
+                    startlocationupdate();
+                } else {
+                    stoplocationupdate();
+                }
+            }
+        });
+    }
+
+    private void stoplocationupdate() {
+        tv_updates.setText("Tracker is offline");
+        fusedLocationProviderClient.removeLocationUpdates(locationCallBack);
+    }
+
+    private void startlocationupdate() {
+        tv_updates.setText("Tracker is online");
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        fusedLocationProviderClient.requestLocationUpdates(locationRequest, locationCallBack, null);
         updategps();
     }
 
