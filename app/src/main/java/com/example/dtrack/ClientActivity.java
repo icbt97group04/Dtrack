@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
 public class ClientActivity extends AppCompatActivity {
-
+//aaaaaaaaaaaaaaaaaaaaaaaaaaaaa
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
