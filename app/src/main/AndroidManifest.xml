@@ -18,13 +18,13 @@
         android:theme="@style/Theme.DTrack"
         tools:targetApi="31">
         <activity
+            android:name=".DriverActivity"
+            android:exported="false" />
+        <activity
             android:name=".HowToRegisterWebview"
             android:exported="false" />
         <activity
             android:name=".ClientActivity"
-            android:exported="false" />
-        <activity
-            android:name=".DriverActivity"
             android:exported="false" />
         <activity
             android:name=".LoginActivity"
