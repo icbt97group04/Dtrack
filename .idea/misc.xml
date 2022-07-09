@@ -3,11 +3,25 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/MSI/AndroidStudioProjects/DTrack/app/src/main/res/layout/activity_client.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/MSI/AndroidStudioProjects/DTrack/app/src/main/res/layout/activity_driver.xml" value="0.17395833333333333" />
         <entry key="..\:/Users/MSI/AndroidStudioProjects/DTrack/app/src/main/res/layout/activity_how_to_register_webview.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/MSI/AndroidStudioProjects/DTrack/app/src/main/res/layout/activity_loctrack.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/MSI/AndroidStudioProjects/DTrack/app/src/main/res/layout/activity_login.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/MSI/AndroidStudioProjects/DTrack/app/src/main/res/layout/activity_main.xml" value="0.33" />
+        <entry key="..\:/Users/MSI/AndroidStudioProjects/DTrack/app/src/main/res/layout/fragment_client_account.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/MSI/AndroidStudioProjects/DTrack/app/src/main/res/layout/fragment_client_current_ride.xml" value="0.365625" />
+        <entry key="..\:/Users/MSI/AndroidStudioProjects/DTrack/app/src/main/res/layout/fragment_client_infrom_attendance.xml" value="0.365625" />
+        <entry key="..\:/Users/MSI/AndroidStudioProjects/DTrack/app/src/main/res/layout/fragment_client_payment.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/MSI/AndroidStudioProjects/DTrack/app/src/main/res/layout/fragment_customer_account.xml" value="0.365625" />
+        <entry key="..\:/Users/MSI/AndroidStudioProjects/DTrack/app/src/main/res/layout/fragment_driver_account.xml" value="0.365625" />
+        <entry key="..\:/Users/MSI/AndroidStudioProjects/DTrack/app/src/main/res/layout/fragment_driver_attendance.xml" value="0.365625" />
+        <entry key="..\:/Users/MSI/AndroidStudioProjects/DTrack/app/src/main/res/layout/fragment_driver_current_ride.xml" value="0.365625" />
+        <entry key="..\:/Users/MSI/AndroidStudioProjects/DTrack/app/src/main/res/layout/fragment_driver_payment.xml" value="0.365625" />
+        <entry key="..\:/Users/MSI/AndroidStudioProjects/DTrack/app/src/main/res/menu/client_bottom_navigation_menu.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/MSI/AndroidStudioProjects/DTrack/app/src/main/res/menu/client_botton_navigation_menu.xml" value="0.33" />
+        <entry key="..\:/Users/MSI/AndroidStudioProjects/DTrack/app/src/main/res/menu/driver_bottom_navigation_menu.xml" value="0.365625" />
+        <entry key="..\:/Users/MSI/AndroidStudioProjects/DTrack/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1855" />
       </map>
     </option>
   </component>

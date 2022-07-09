@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_Current_Ride"
+        android:icon="@drawable/icon_location"
+        android:title="Current Ride"/>
+    <item
+        android:id="@+id/nav_inform"
+        android:icon="@drawable/icon_info"
+        android:title="inform"/>
+    <item
+        android:id="@+id/nav_payment"
+        android:icon="@drawable/icon_payment"
+        android:title="Payments"/>
+    <item
+        android:id="@+id/nav_Account"
+        android:icon="@drawable/icon_account"
+        android:title="Account"/>
+</menu>
