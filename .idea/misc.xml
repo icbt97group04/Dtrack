@@ -14,6 +14,10 @@
         <entry key="..\:/Users/MSI/AndroidStudioProjects/DTrack/app/src/main/res/layout/fragment_client_infrom_attendance.xml" value="0.365625" />
         <entry key="..\:/Users/MSI/AndroidStudioProjects/DTrack/app/src/main/res/layout/fragment_client_payment.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/MSI/AndroidStudioProjects/DTrack/app/src/main/res/layout/fragment_customer_account.xml" value="0.365625" />
+        <entry key="..\:/Users/MSI/AndroidStudioProjects/DTrack/app/src/main/res/layout/fragment_driver_account.xml" value="0.365625" />
+        <entry key="..\:/Users/MSI/AndroidStudioProjects/DTrack/app/src/main/res/layout/fragment_driver_attendance.xml" value="0.365625" />
+        <entry key="..\:/Users/MSI/AndroidStudioProjects/DTrack/app/src/main/res/layout/fragment_driver_current_ride.xml" value="0.365625" />
+        <entry key="..\:/Users/MSI/AndroidStudioProjects/DTrack/app/src/main/res/layout/fragment_driver_payment.xml" value="0.365625" />
         <entry key="..\:/Users/MSI/AndroidStudioProjects/DTrack/app/src/main/res/menu/client_bottom_navigation_menu.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/MSI/AndroidStudioProjects/DTrack/app/src/main/res/menu/client_botton_navigation_menu.xml" value="0.33" />
         <entry key="..\:/Users/MSI/AndroidStudioProjects/DTrack/app/src/main/res/menu/driver_bottom_navigation_menu.xml" value="0.365625" />
