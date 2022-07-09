@@ -37,7 +37,7 @@ import java.util.Map;
 
 public class DriverActivity extends AppCompatActivity {
     Switch sw_locationsupdates, sw_gps;
-    String server_url = "http://139.59.118.223//darcin.php";
+    String server_url = "https://dtrack.live/Dbconfig.php";
     TextView tv_lat, tv_lon, tv_altitude, tv_accuracy, tv_speed, tv_sensor, tv_updates, tv_address;
     //location request
     LocationCallback locationCallBack;
@@ -137,7 +137,8 @@ public class DriverActivity extends AppCompatActivity {
                 @Override
                 public void onSuccess(Location location) {
                     String lat = (String.valueOf(location.getLatitude()));
-                    connection(lat);
+                    String lon = (String.valueOf(location.getLongitude()));
+                    connection(lat,lon);
 
 
                 }
@@ -153,7 +154,7 @@ public class DriverActivity extends AppCompatActivity {
 
     }
 
-    private void connection(String lat) {
+    private void connection(String lat, String lon) {
 
         {
 
@@ -166,7 +167,7 @@ public class DriverActivity extends AppCompatActivity {
                     builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            tv_lat.setText("");
+
 
                         }
                     });
@@ -193,7 +194,10 @@ public class DriverActivity extends AppCompatActivity {
                 @Override
                 protected Map<String, String> getParams() throws AuthFailureError {
                     Map <String,String> Params = new HashMap<String, String>();
-                    Params.put("name",lat);
+                    Params.put("lat",lat);
+                    Params.put("lon",lon);
+                    String id="1";
+                    Params.put("id",id);
 
                     return Params;
 
@@ -216,8 +220,6 @@ public class DriverActivity extends AppCompatActivity {
                     tv_accuracy.setText(String.valueOf(location.getAccuracy()));
                     tv_altitude.setText(String.valueOf(location.getAltitude()));
                     tv_speed.setText(String.valueOf(location.getSpeed()));
-
-
                 }
             });
         }else{
