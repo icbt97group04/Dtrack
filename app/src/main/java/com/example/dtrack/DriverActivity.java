@@ -1,10 +1,12 @@
 package com.example.dtrack;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
+import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Build;
@@ -22,13 +24,26 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.Priority;
 import com.google.android.gms.tasks.OnSuccessListener;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.util.HashMap;
+import java.util.Map;
+
 public class DriverActivity extends AppCompatActivity {
     Switch sw_locationsupdates, sw_gps;
+    String server_url = "http://139.59.118.223//darcin.php";
     TextView tv_lat, tv_lon, tv_altitude, tv_accuracy, tv_speed, tv_sensor, tv_updates, tv_address;
     //location request
     LocationCallback locationCallBack;
     LocationRequest locationRequest;
     FusedLocationProviderClient fusedLocationProviderClient;
+    AlertDialog.Builder builder;
 
     //goolgle api serverices for location
     @Override
@@ -46,6 +61,7 @@ public class DriverActivity extends AppCompatActivity {
         tv_address = findViewById(R.id.tv_address);
         sw_locationsupdates = findViewById(R.id.sw_locationsupdates);
         sw_gps = findViewById(R.id.sw_gps);
+        builder = new AlertDialog.Builder(DriverActivity.this);
 
         //setting properties for locatoinrequest
         locationRequest = LocationRequest.create();
@@ -95,21 +111,98 @@ public class DriverActivity extends AppCompatActivity {
         fusedLocationProviderClient.removeLocationUpdates(locationCallBack);
     }
 
+
+
+
     private void startlocationupdate() {
         tv_updates.setText("Tracker is online");
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
+
             return;
         }
         fusedLocationProviderClient.requestLocationUpdates(locationRequest, locationCallBack, null);
         updategps();
+        insertdatabase();
     }
+
+
+
+
+    private void insertdatabase() {
+        fusedLocationProviderClient= LocationServices.getFusedLocationProviderClient(DriverActivity.this);
+
+        if(ActivityCompat.checkSelfPermission(DriverActivity.this, Manifest.permission.ACCESS_FINE_LOCATION)== PackageManager.PERMISSION_GRANTED){
+            //user give permisson
+            fusedLocationProviderClient.getLastLocation().addOnSuccessListener(DriverActivity.this, new OnSuccessListener<Location>() {
+                @Override
+                public void onSuccess(Location location) {
+                    String lat = (String.valueOf(location.getLatitude()));
+                    connection(lat);
+
+
+                }
+            });
+        }else{
+            if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.M){
+
+                requestPermissions( new String[]{Manifest.permission.ACCESS_FINE_LOCATION},99);
+            }
+
+
+        }
+
+    }
+
+    private void connection(String lat) {
+
+        {
+
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, server_url, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+
+                    builder.setTitle("Server Response");
+                    builder.setMessage("Response :"+response);
+                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            tv_lat.setText("");
+
+                        }
+                    });
+                    AlertDialog alertDialog = builder.create();
+                    alertDialog.show();
+
+                }
+            }
+
+                    , new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Toast.makeText(DriverActivity.this,"ERROR....."+error,Toast.LENGTH_SHORT).show();
+                    StringWriter writer = new StringWriter();
+                    PrintWriter printWriter = new PrintWriter( writer );
+                    error.printStackTrace( printWriter );
+                    printWriter.flush();
+
+                   // String stackTrace = writer.toString();
+                   // error.printStackTrace( );
+
+                }
+            }){
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    Map <String,String> Params = new HashMap<String, String>();
+                    Params.put("name",lat);
+
+                    return Params;
+
+                }
+            };
+            Mysingnalton.getInstance(DriverActivity.this).addTorequestque(stringRequest);
+        }
+    }
+
 
     private void updategps() {
         fusedLocationProviderClient= LocationServices.getFusedLocationProviderClient(DriverActivity.this);
@@ -119,7 +212,11 @@ public class DriverActivity extends AppCompatActivity {
             fusedLocationProviderClient.getLastLocation().addOnSuccessListener(DriverActivity.this, new OnSuccessListener<Location>() {
                 @Override
                 public void onSuccess(Location location) {
-                    updateui(location);
+                    tv_lat.setText(String.valueOf(location.getLatitude()));
+                    tv_accuracy.setText(String.valueOf(location.getAccuracy()));
+                    tv_altitude.setText(String.valueOf(location.getAltitude()));
+                    tv_speed.setText(String.valueOf(location.getSpeed()));
+
 
                 }
             });
@@ -136,6 +233,8 @@ public class DriverActivity extends AppCompatActivity {
 
     private void updateui(Location location) {
         tv_lat.setText(String.valueOf(location.getLatitude()));
+        String lat = (String.valueOf(location.getLatitude()));
+        //connection(lat);
         tv_lon.setText(String.valueOf(location.getLongitude()));
         tv_accuracy.setText(String.valueOf(location.getAccuracy()));
         if(location.hasAltitude()){
