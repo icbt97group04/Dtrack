@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">DTrack</string>
+    <string-array name="userlevel">
+        <item>Driver</item>
+        <item>Parent</item>
+    </string-array>
 </resources>
