@@ -5,7 +5,7 @@
         android:icon="@drawable/icon_location"
         android:title="Current Ride"/>
     <item
-        android:id="@+id/nav_inform"
+            android:id="@+id/nav_inform"
         android:icon="@drawable/ic__user_"
         android:title="Attendance"/>
     <item

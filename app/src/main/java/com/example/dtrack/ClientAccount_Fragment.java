@@ -19,6 +19,7 @@ public class ClientAccount_Fragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        super.onViewCreated(view, savedInstanceState);
 
     }
 }
