@@ -25,7 +25,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class LoginActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
-
+    String text;
     Button login;
     TextView username,password;
 
@@ -34,8 +34,7 @@ public class LoginActivity extends AppCompatActivity implements AdapterView.OnIt
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         Spinner spinner=findViewById(R.id.spinner);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.userlevel, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,R.array.userlevel, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(this);
@@ -51,9 +50,9 @@ public class LoginActivity extends AppCompatActivity implements AdapterView.OnIt
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-        String text = adapterView.getItemAtPosition(i).toString();
+        text = adapterView.getItemAtPosition(i).toString();
         //Toast.makeText(adapterView.getContext(), text, Toast.LENGTH_SHORT).show();
-        //driverlogin(text);
+        driverlogin(text);
     }
 
     private void driverlogin(String text) {
@@ -64,7 +63,7 @@ public class LoginActivity extends AppCompatActivity implements AdapterView.OnIt
                 String pw=password.getText().toString();
                 //Toast.makeText(LoginActivity.this, text, Toast.LENGTH_SHORT).show();
                 if(text=="Driver"){
-                logind(user,pw);
+                    logind(user,pw);
 
                 }
 
@@ -125,7 +124,7 @@ public class LoginActivity extends AppCompatActivity implements AdapterView.OnIt
 
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
-       //Toast.makeText(adapterView.getContext(), "Select User Level", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(adapterView.getContext(), "Select User Level", Toast.LENGTH_SHORT).show();
 
     }
 
