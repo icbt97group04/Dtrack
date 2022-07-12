@@ -17,7 +17,33 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DTrack"
         tools:targetApi="31">
-
+        <activity
+            android:name=".ClientChangeDetails"
+            android:exported="false" />
+        <activity
+            android:name=".FAQ_Web_Viewer"
+            android:exported="false" />
+        <activity
+            android:name=".DisplayNotification"
+            android:exported="false" />
+        <activity
+            android:name=".ViewNotifications"
+            android:exported="false" />
+        <activity
+            android:name=".ContactClient"
+            android:exported="false" />
+        <activity
+            android:name=".ContatcDriver"
+            android:exported="false" />
+        <activity
+            android:name=".ContactServiceProvider"
+            android:exported="false" />
+        <activity
+            android:name=".PaymentDetails"
+            android:exported="false" />
+        <activity
+            android:name=".login2"
+            android:exported="false" />
         <activity
             android:name=".ClientUpdateInfo"
             android:exported="false" />

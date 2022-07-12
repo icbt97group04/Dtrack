@@ -43,189 +43,136 @@ public class LoginActivity extends AppCompatActivity {
                 R.array.userlevel, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
-       // spinner.setOnItemSelectedListener(this);
+        // spinner.setOnItemSelectedListener(this);
 
         login = findViewById(R.id.btnLogin);
         username=findViewById(R.id.username);
         password=findViewById(R.id.password);
-        //String tef="Driver";
-       // driverlogin(tef);
 
 
-login.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View view) {
-        String text = spinner.getSelectedItem().toString();
-        String user= username.getText().toString();
-        String pw=password.getText().toString();
-        //Toast.makeText(LoginActivity.this, text, Toast.LENGTH_SHORT).show();
-        if(text=="Driver"){
-            logind(user,pw);
 
-        }
-        else {
-           clientlogin(user,pw);
+        login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String text = spinner.getSelectedItem().toString();
+                String user= username.getText().toString();
+                String pw=password.getText().toString();
 
-        }
-    }
-});
+                if(text.length()==6){
+                    logind(user,pw);
+                    //Toast.makeText(LoginActivity.this, "yes", Toast.LENGTH_SHORT).show();
+
+                }
+                else{
+                    clientlogin(user,pw);
+
+                }
+            }
+        });
     }
 
     private void clientlogin(String user, String pw) {
-        final ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this);
-        progressDialog.setTitle("login your account");
-        progressDialog.setCancelable(false);
-        progressDialog.setCanceledOnTouchOutside(false);
-        progressDialog.setIndeterminate(false);
-        progressDialog.show();
-        String uRl = "https://dtrack.live/darclogin5.php";
-        StringRequest request = new StringRequest(Request.Method.POST, uRl, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                String res=response;
+        //checking empty textboxes
+        if(user.isEmpty()||pw.isEmpty()){
+            Toast.makeText(LoginActivity.this, "Enter Details", Toast.LENGTH_SHORT).show();
+        }else {
+            final ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this);
+            progressDialog.setTitle("login your account");
+            progressDialog.setCancelable(false);
+            progressDialog.setCanceledOnTouchOutside(false);
+            progressDialog.setIndeterminate(false);
+            progressDialog.show();
+            String uRl = "https://dtrack.live/darclogin5.php";
+            StringRequest request = new StringRequest(Request.Method.POST, uRl, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    String res = response;
 
-                if (response.length()>1){
-                    Toast.makeText(LoginActivity.this, response, Toast.LENGTH_SHORT).show();
+                    if (response.length() > 1) {
 
-
-                    startActivity(new Intent(LoginActivity.this,DriverActivity.class));
-                    progressDialog.dismiss();
-                    finish();
-                }
-                else {
-                    Toast.makeText(LoginActivity.this, response, Toast.LENGTH_SHORT).show();
-                    progressDialog.dismiss();
-                }
-               /* try {
-
-                    JSONArray array = new JSONArray(response);
-                    for (int i = 0; i<array.length(); i++){
-
-                        JSONObject object = array.getJSONObject(i);
-
-                        String DID = object.getString("DID");
-
+                        Intent i = new Intent(LoginActivity.this, ClientActivity.class);
+                        i.putExtra("cid", res);
+                        startActivity(i);
                         progressDialog.dismiss();
-
-
+                        finish();
+                    } else {
+                        Toast.makeText(LoginActivity.this, "Wrong Details,Try Again ", Toast.LENGTH_SHORT).show();
+                        progressDialog.dismiss();
                     }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Toast.makeText(LoginActivity.this, error.toString(), Toast.LENGTH_SHORT).show();
+                    progressDialog.dismiss();
 
+                }
+            }) {
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    HashMap<String, String> param = new HashMap<>();
+                    param.put("Cname", user);
+                    param.put("ClientPassword", pw);
+                    return param;
 
-                }catch (Exception ex){
-                    Toast.makeText(LoginActivity.this, "ex" + ex , Toast.LENGTH_SHORT).show();
-                }*/
-                //Toast.makeText(LoginActivity.this, response, Toast.LENGTH_SHORT).show();
+                }
+            };
 
-
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(LoginActivity.this, error.toString(), Toast.LENGTH_SHORT).show();
-                progressDialog.dismiss();
-
-            }
-        }){
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                HashMap<String,String> param = new HashMap<>();
-                param.put("Cname",user);
-                param.put("ClientPassword",pw);
-                return param;
-
-            }
-        };
-
-        request.setRetryPolicy(new DefaultRetryPolicy(30000,DefaultRetryPolicy.DEFAULT_MAX_RETRIES,DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        MySingleton.getmInstance(LoginActivity.this).addToRequestQueue(request);
-        Toast.makeText(LoginActivity.this, user+"  "+pw, Toast.LENGTH_SHORT).show();
-
+            request.setRetryPolicy(new DefaultRetryPolicy(30000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+            MySingleton.getmInstance(LoginActivity.this).addToRequestQueue(request);
+            //Toast.makeText(LoginActivity.this, user + "  " + pw, Toast.LENGTH_SHORT).show();
+        }
     }
-
-   /* @Override
-    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-        String text = adapterView.getItemAtPosition(i).toString();
-        //Toast.makeText(adapterView.getContext(), text, Toast.LENGTH_SHORT).show();
-        driverlogin(text);
-    }*/
-
-
 
     private void logind(String user,String pw) {
-        final ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this);
-        progressDialog.setTitle("login your account");
-        progressDialog.setCancelable(false);
-        progressDialog.setCanceledOnTouchOutside(false);
-        progressDialog.setIndeterminate(false);
-        progressDialog.show();
-        String uRl = "https://dtrack.live/darclogin4.php";
-        StringRequest request = new StringRequest(Request.Method.POST, uRl, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                String res=response;
+        if(user.isEmpty()||pw.isEmpty()){
+            Toast.makeText(LoginActivity.this, "Enter Details", Toast.LENGTH_SHORT).show();
+        }else {
+            final ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this);
+            progressDialog.setTitle("login your account");
+            progressDialog.setCancelable(false);
+            progressDialog.setCanceledOnTouchOutside(false);
+            progressDialog.setIndeterminate(false);
+            progressDialog.show();
+            String uRl = "https://dtrack.live/darclogin4.php";
+            StringRequest request = new StringRequest(Request.Method.POST, uRl, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    String res=response;
 
-                if (response.length()>1){
-                    Toast.makeText(LoginActivity.this, response, Toast.LENGTH_SHORT).show();
-
-
-                    startActivity(new Intent(LoginActivity.this,DriverActivity.class));
-                    progressDialog.dismiss();
-                    finish();
-                }
-                else {
-                    Toast.makeText(LoginActivity.this, response, Toast.LENGTH_SHORT).show();
-                    progressDialog.dismiss();
-                }
-               /* try {
-
-                    JSONArray array = new JSONArray(response);
-                    for (int i = 0; i<array.length(); i++){
-
-                        JSONObject object = array.getJSONObject(i);
-
-                        String DID = object.getString("DID");
-
+                    if (response.length()>0){
+                        Toast.makeText(LoginActivity.this, response, Toast.LENGTH_SHORT).show();
+                        Intent i = new Intent(LoginActivity.this, DriverActivity.class);
+                        i.putExtra("did", res);
+                        startActivity(i);
                         progressDialog.dismiss();
-
-
+                        finish();
                     }
+                    else {
+                        Toast.makeText(LoginActivity.this, response, Toast.LENGTH_SHORT).show();
+                        progressDialog.dismiss();
+                    }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Toast.makeText(LoginActivity.this, error.toString(), Toast.LENGTH_SHORT).show();
+                    progressDialog.dismiss();
 
+                }
+            }){
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    HashMap<String,String> param = new HashMap<>();
+                    param.put("Name",user);
+                    param.put("DriverPassword",pw);
+                    return param;
 
-                }catch (Exception ex){
-                    Toast.makeText(LoginActivity.this, "ex" + ex , Toast.LENGTH_SHORT).show();
-                }*/
-                //Toast.makeText(LoginActivity.this, response, Toast.LENGTH_SHORT).show();
+                }
+            };
+            request.setRetryPolicy(new DefaultRetryPolicy(30000,DefaultRetryPolicy.DEFAULT_MAX_RETRIES,DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+            MySingleton.getmInstance(LoginActivity.this).addToRequestQueue(request);
+            //Toast.makeText(LoginActivity.this, user+"  "+pw, Toast.LENGTH_SHORT).show();
 
-
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(LoginActivity.this, error.toString(), Toast.LENGTH_SHORT).show();
-                progressDialog.dismiss();
-
-            }
-        }){
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                HashMap<String,String> param = new HashMap<>();
-                param.put("Name",user);
-                param.put("DriverPassword",pw);
-                return param;
-
-            }
-        };
-
-        request.setRetryPolicy(new DefaultRetryPolicy(30000,DefaultRetryPolicy.DEFAULT_MAX_RETRIES,DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        MySingleton.getmInstance(LoginActivity.this).addToRequestQueue(request);
-        Toast.makeText(LoginActivity.this, user+"  "+pw, Toast.LENGTH_SHORT).show();
-
-    }
-
-   /* @Override
-    public void onNothingSelected(AdapterView<?> adapterView) {
-       //Toast.makeText(adapterView.getContext(), "Select User Level", Toast.LENGTH_SHORT).show();
-
-    }*/
-
+        }}
 }

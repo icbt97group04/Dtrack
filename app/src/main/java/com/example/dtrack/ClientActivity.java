@@ -20,7 +20,7 @@ public class ClientActivity extends AppCompatActivity {
         BottomNavigationView bottomnav = findViewById(R.id.client_bottom_nav);
         bottomnav.setOnNavigationItemSelectedListener(navLister);
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ClientAccount_Fragment()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new Client_Current_Ride_Fragment()).commit();
     }
     private BottomNavigationView.OnNavigationItemSelectedListener navLister = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
