@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 public class ClientAccount_Fragment extends Fragment {
@@ -31,6 +32,7 @@ public class ClientAccount_Fragment extends Fragment {
         TextView notifications = (TextView) view.findViewById(R.id.tvNotifications);
         TextView chageDetails = (TextView) view.findViewById(R.id.tvChangeDetails);
         TextView faq = (TextView) view.findViewById(R.id.tvFAQ);
+        Button logout = (Button) view.findViewById(R.id.btnLogout);
 
         contatcDriver.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,22 +51,30 @@ public class ClientAccount_Fragment extends Fragment {
         payments.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), ClientPayment_Fragment.class);
-                startActivity(intent);
+
+
+                AppCompatActivity activity = (AppCompatActivity) view.getContext();
+                Fragment myFragment = new ClientPayment_Fragment();
+                activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, myFragment).addToBackStack(null).commit();
+
+
+
             }
         });
         inform.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), Client_Inform_Attendance_Fragment.class);
-                startActivity(intent);
+                AppCompatActivity activity = (AppCompatActivity) view.getContext();
+                Fragment myFragment = new Client_Inform_Attendance_Fragment();
+                activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, myFragment).addToBackStack(null).commit();
             }
         });
         notifications.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), ViewNotifications.class);
-                startActivity(intent);
+                Intent i = new Intent(getContext(), ViewNotifications.class);
+                i.putExtra("type", "Children" );
+                startActivity(i);
             }
         });
         chageDetails.setOnClickListener(new View.OnClickListener() {
@@ -81,6 +91,23 @@ public class ClientAccount_Fragment extends Fragment {
                 startActivity(intent);
             }
         });
+
+
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+               // ClientActivity  clientActivity = (ClientActivity)getActivity();
+                //clientActivity.IsLoggedIn = false;
+
+
+                startActivity(new Intent( getContext(),login2.class));
+            }
+        });
+
+
+
+
 
     }
 }

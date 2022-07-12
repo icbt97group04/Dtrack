@@ -31,7 +31,7 @@ public class ViewNotifications extends AppCompatActivity {
     private ArrayList<Notification> mNotificationList;
     private RequestQueue mRequestQueue;
     String userType;
-    String userId;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +40,7 @@ public class ViewNotifications extends AppCompatActivity {
 
         Intent i = getIntent();
         userType = i.getStringExtra("type");
-        userId  = i.getStringExtra("id");
+
 
         mRecyclerView = findViewById(R.id.recycler_view);
         mRecyclerView.setHasFixedSize(true);
@@ -64,7 +64,7 @@ public class ViewNotifications extends AppCompatActivity {
     private void parseJSON() {
 
 
-        String url = "https://dtrack.live/generatenotificationarray.php";
+        String url = "https://dtrack.live/generatenotificationarray.php?usertype="+userType;
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
