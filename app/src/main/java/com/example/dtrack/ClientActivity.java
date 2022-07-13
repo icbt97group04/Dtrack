@@ -15,6 +15,9 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class ClientActivity extends AppCompatActivity {
     private DBHelper Db;
 
+    public Boolean IsLoggedIn= true;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,11 +31,18 @@ public class ClientActivity extends AppCompatActivity {
         }*/
 
 
+        if(!IsLoggedIn){
+            startActivity(new Intent(this,login2.class));
+
+        }
+
         BottomNavigationView bottomnav = findViewById(R.id.client_bottom_nav);
         bottomnav.setOnNavigationItemSelectedListener(navLister);
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ClientAccount_Fragment()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new Client_Current_Ride_Fragment()).commit();
     }
+
+
     private BottomNavigationView.OnNavigationItemSelectedListener navLister = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -61,7 +71,19 @@ public class ClientActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.client_bottom_navigation_menu,menu);
+        //getMenuInflater().inflate(R.menu.client_bottom_navigation_menu,menu);
+        getMenuInflater().inflate(R.menu.customertop_menu,menu);
         return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        if(item.getItemId() == R.id.top_notifications){
+            Intent i = new Intent(this, ViewNotifications.class);
+            i.putExtra("type", "Children" );
+            startActivity(i);
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

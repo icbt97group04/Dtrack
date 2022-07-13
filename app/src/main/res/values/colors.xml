@@ -7,4 +7,14 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="busyellow">#F5A400</color>
+    <color name="CaribbeanGreen">#00C8AA</color>
+    <color name="OrangeSoda">#F46044</color>
+    <color name="CarrotOrange">#F19123</color>
+    <color name="SafetyYellow">#F5D200</color>
+    <color name="OuterSpace">#464646</color>
+    <color name="mint">#98FB98</color>
+    <color name="PastelRedColor">#ff6961</color>
+
+
 </resources>
