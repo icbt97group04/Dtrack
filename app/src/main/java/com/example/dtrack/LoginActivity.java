@@ -96,6 +96,7 @@ login.setOnClickListener(new View.OnClickListener() {
                         Intent i = new Intent(LoginActivity.this, ClientActivity.class);
                         i.putExtra("cid", res);
                         startActivity(i);
+                        Db.Insertcuser(response,"Client","Logged");
                         progressDialog.dismiss();
                         finish();
                     } else {
