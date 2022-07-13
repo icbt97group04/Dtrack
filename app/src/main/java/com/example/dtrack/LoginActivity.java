@@ -33,6 +33,7 @@ public class LoginActivity extends AppCompatActivity {
 
     Button login;
     TextView username,password;
+    private DBHelper Db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +49,8 @@ public class LoginActivity extends AppCompatActivity {
         login = findViewById(R.id.btnLogin);
         username=findViewById(R.id.username);
         password=findViewById(R.id.password);
+        Db=new DBHelper(this);
+        Db.OpenDB();
 
 
 
@@ -88,7 +91,7 @@ login.setOnClickListener(new View.OnClickListener() {
                 public void onResponse(String response) {
                     String res = response;
 
-                    if (response.length() > 1) {
+                    if (response.length() > 0) {
 
                         Intent i = new Intent(LoginActivity.this, ClientActivity.class);
                         i.putExtra("cid", res);
@@ -111,8 +114,8 @@ login.setOnClickListener(new View.OnClickListener() {
                 @Override
                 protected Map<String, String> getParams() throws AuthFailureError {
                     HashMap<String, String> param = new HashMap<>();
-                    param.put("Cname", user);
-                    param.put("ClientPassword", pw);
+                    param.put("email", user);
+                    param.put("cpassword", pw);
                     return param;
 
                 }
@@ -145,6 +148,7 @@ login.setOnClickListener(new View.OnClickListener() {
                     Intent i = new Intent(LoginActivity.this, DriverActivity.class);
                     i.putExtra("did", res);
                     startActivity(i);
+                    Db.Insertcuser(response,"Driver","Logged");
                     progressDialog.dismiss();
                     finish();
                 }
@@ -164,7 +168,7 @@ login.setOnClickListener(new View.OnClickListener() {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 HashMap<String,String> param = new HashMap<>();
-                param.put("Name",user);
+                param.put("Email",user);
                 param.put("DriverPassword",pw);
                 return param;
 

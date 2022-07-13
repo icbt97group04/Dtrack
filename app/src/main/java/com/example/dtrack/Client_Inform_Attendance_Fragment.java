@@ -1,5 +1,6 @@
 package com.example.dtrack;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.LayoutInflater;
@@ -8,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
@@ -25,6 +27,7 @@ public class Client_Inform_Attendance_Fragment extends Fragment {
     boolean commingTomorrow;
     boolean commingTomorrowMorning;
     boolean commingTomorrowAfternoon;
+    private DBHelper Db;
 
 
     private long tiemeLeftInMilliseconds = 432000;
@@ -49,6 +52,14 @@ public class Client_Inform_Attendance_Fragment extends Fragment {
                 if (isChecked) {
                     morningButton.setEnabled(true);
                     afternoonButton.setEnabled(true);
+                    Db=new DBHelper(getActivity());
+       Intent intent = getActivity().getIntent();
+        String CID = intent.getStringExtra("cid");
+       Boolean cds = Db.checkusername(CID);
+
+        if (cds=true){
+            Toast.makeText(getActivity(), "LOGGGED IN", Toast.LENGTH_SHORT).show();
+        }
                 } else {
                     morningButton.setEnabled(false);
                     afternoonButton.setEnabled(false);

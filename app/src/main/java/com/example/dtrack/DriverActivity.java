@@ -44,6 +44,7 @@ public class DriverActivity extends AppCompatActivity {
     Switch sw_locationsupdates, sw_gps;
     String server_url = "https://dtrack.live/Dbconfig.php";
    Button button;
+    private DBHelper Db;
     TextView tv_lat, tv_lon, tv_altitude, tv_accuracy, tv_speed, tv_sensor, tv_updates, tv_address;
     //location request
    public  String number;
@@ -77,6 +78,7 @@ public class DriverActivity extends AppCompatActivity {
         sw_gps = findViewById(R.id.sw_gps);
         button=findViewById(R.id.button);
         builder = new AlertDialog.Builder(DriverActivity.this);
+        Db=new DBHelper(this);
 
 
 
@@ -100,6 +102,9 @@ public class DriverActivity extends AppCompatActivity {
             public void onClick(View view) {
                 //mhandler.postDelayed(updating,5000);
                // getvehiclenumber(DID);
+                /*Intent intent = getIntent();
+                String DID = intent.getStringExtra("did");
+                Db.checkusername(DID);*/
 
             }
         });

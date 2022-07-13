@@ -69,6 +69,25 @@ public class DBHelper {
         return false;
 
     }
+    public boolean Insertcuser(String cuserid,String UserType,String loginStatus){
+
+        //SQLiteDatabase MyDB=this.getWritableDatabase();
+        ContentValues contentValues=new ContentValues();
+        contentValues.put("userId",cuserid);
+        contentValues.put("UserType",UserType);
+        contentValues.put("loginStatus",loginStatus);
+        long result=db.insert("CurrentUser",null,contentValues);
+        if(result==-1) return false;
+        else return true;
+    }
+    public boolean checkusername(String userId){
+
+        Cursor cursor = db.rawQuery("Select loginStatus from CurrentUser where userId='"+userId+"'",null);
+        if(cursor.getCount()>0)
+            return true;
+        else
+            return false;
+    }
 
 
 

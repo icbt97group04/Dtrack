@@ -1,5 +1,6 @@
 package com.example.dtrack;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -15,9 +16,9 @@ public class DBConnector extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL("create table DriverAssistanceLocal( Did VARCHAR, DName VARHAR,DAddress VARHAR,DEmail VARHAR,DMobileNumber VARHAR)");
         sqLiteDatabase.execSQL("create table CurrentUser( userId VARCHAR, UserType VARCHAR, loginStatus Varchar)");
     }
-
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+
 
     }
 }
