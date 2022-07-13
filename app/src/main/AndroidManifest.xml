@@ -18,6 +18,12 @@
         android:theme="@style/Theme.DTrack"
         tools:targetApi="31">
         <activity
+            android:name=".ViewChildren"
+            android:exported="false" />
+        <activity
+            android:name=".DriverActiviy2"
+            android:exported="false" />
+        <activity
             android:name=".ClientChangeDetails"
             android:exported="false" />
         <activity

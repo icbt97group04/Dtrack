@@ -6,14 +6,14 @@
         android:title="Current Ride"/>
     <item
             android:id="@+id/nav_inform"
-        android:icon="@drawable/ic__user_"
-        android:title="Attendance"/>
+        android:icon="@drawable/arrowup"
+        android:title="PickupList"/>
     <item
         android:id="@+id/nav_payment"
-        android:icon="@drawable/icon_payment"
-        android:title="Payments"/>
+        android:icon="@drawable/arrowdown"
+        android:title="Droplist"/>
     <item
         android:id="@+id/nav_Account"
         android:icon="@drawable/icon_account"
-        android:title="Account"/>
+        android:title="My Account"/>
 </menu>
