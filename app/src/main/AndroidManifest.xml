@@ -47,9 +47,7 @@
         <activity
             android:name=".PaymentDetails"
             android:exported="false" />
-        <activity
-            android:name=".login2"
-            android:exported="false" />
+
         <activity
             android:name=".ClientUpdateInfo"
             android:exported="false" />
