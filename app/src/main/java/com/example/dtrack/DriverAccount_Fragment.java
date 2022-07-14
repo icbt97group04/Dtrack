@@ -25,7 +25,7 @@ public class DriverAccount_Fragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         TextView currentride = (TextView) view.findViewById(R.id.tvCurrentRide);
-        TextView clientlist = (TextView) view.findViewById(R.id.tvClientlist);
+
         TextView pickuplist = (TextView) view.findViewById(R.id.tvPickuplist);
         TextView droplist = (TextView) view.findViewById(R.id.tvDropList);
         TextView notifications = (TextView) view.findViewById(R.id.tvDriverNotification);
@@ -41,12 +41,7 @@ public class DriverAccount_Fragment extends Fragment {
                 activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, myFragment).addToBackStack(null).commit();
             }
         });
-        clientlist.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-            }
-        });
         pickuplist.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

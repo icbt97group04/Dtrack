@@ -9,17 +9,6 @@ import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button btn1;
-    Button btn2;
-    Button btn3;
-    Button btn4;
-    Button btn5;
-    Button btn6;
-    Button btn7;
-    Button btn8;
-    Button btn9;
-    Button btn10;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
             public void run() {
                 //This method will be executed once the timer is over
                 // Start your app main activity
-                Intent i = new Intent(MainActivity.this, login2.class);
+                Intent i = new Intent(MainActivity.this, LoginActivity.class);
                 startActivity(i);
                 // close this activity
                 finish();

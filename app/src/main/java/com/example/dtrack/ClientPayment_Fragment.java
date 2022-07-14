@@ -30,7 +30,7 @@ public class ClientPayment_Fragment extends Fragment {
     private paymentAdapter mExampleAdapter;
     private ArrayList<Payment> mExampleList;
     private RequestQueue mRequestQueue;
-    private String userid = "1";
+    private String userid = "4";
 
     @Nullable
     @Override
