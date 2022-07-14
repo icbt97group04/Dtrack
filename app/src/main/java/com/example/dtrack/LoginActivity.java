@@ -1,8 +1,12 @@
 package com.example.dtrack;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -26,14 +30,17 @@ import org.json.JSONObject;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.nio.channels.Channel;
 import java.util.HashMap;
 import java.util.Map;
+import android.app.NotificationChannel;
 
 public class LoginActivity extends AppCompatActivity {
 
     Button login;
     TextView username,password;
     private DBHelper Db;
+    AlertDialog.Builder builder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +56,7 @@ public class LoginActivity extends AppCompatActivity {
         login = findViewById(R.id.btnLogin);
         username=findViewById(R.id.username);
         password=findViewById(R.id.password);
+        builder = new AlertDialog.Builder(LoginActivity.this);
         Db=new DBHelper(this);
         Db.OpenDB();
 
@@ -64,7 +72,6 @@ login.setOnClickListener(new View.OnClickListener() {
         if(text.length()==6){
                 logind(user,pw);
             //Toast.makeText(LoginActivity.this, "yes", Toast.LENGTH_SHORT).show();
-
         }
         else{
            clientlogin(user,pw);
@@ -93,12 +100,14 @@ login.setOnClickListener(new View.OnClickListener() {
 
                     if (response.length() > 0) {
 
-                        Intent i = new Intent(LoginActivity.this, ClientActivity.class);
+                        /*Intent i = new Intent(LoginActivity.this, ClientActivity.class);
                         i.putExtra("cid", res);
                         startActivity(i);
-                        Db.Insertcuser(response,"Client","Logged");
+                        Db.Insertcuser(response,"Client","Logged");*/
+                        paymentcheck(res);
+                        //Toast.makeText(LoginActivity.this, "yes", Toast.LENGTH_SHORT).show();
                         progressDialog.dismiss();
-                        finish();
+
                     } else {
                         Toast.makeText(LoginActivity.this, "Wrong Details,Try Again ", Toast.LENGTH_SHORT).show();
                         progressDialog.dismiss();
@@ -154,7 +163,7 @@ login.setOnClickListener(new View.OnClickListener() {
                     finish();
                 }
                 else {
-                    Toast.makeText(LoginActivity.this, response, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "Wrong Password", Toast.LENGTH_SHORT).show();
                     progressDialog.dismiss();
                 }
             }
@@ -180,4 +189,77 @@ login.setOnClickListener(new View.OnClickListener() {
         //Toast.makeText(LoginActivity.this, user+"  "+pw, Toast.LENGTH_SHORT).show();
 
     }}
-}
+
+    private  void paymentcheck(String cid){
+        String uRl = "https://dtrack.live/darcpaymentcheck.php";
+        StringRequest request = new StringRequest(Request.Method.POST, uRl, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Toast.makeText(LoginActivity.this, response, Toast.LENGTH_SHORT).show();
+
+
+                if(response.length()==1){
+                        Toast.makeText(LoginActivity.this, "Blocked", Toast.LENGTH_SHORT).show();
+                        builder.setTitle("Warning");
+                        builder.setMessage("Please Pay your fees :");
+                        builder.setPositiveButton("PAY", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.cancel();
+
+                            }
+                        });
+                        AlertDialog alertDialog = builder.create();
+                        alertDialog.show();
+                       /* Intent i = new Intent(LoginActivity.this, ClientActivity.class);
+                        i.putExtra("cid", response);
+                        startActivity(i);
+                        Db.Insertcuser(cid,"Client","Logged");*/
+
+                } else if(response.length()==2) {
+                        //Toast.makeText(LoginActivity.this, "Blocked", Toast.LENGTH_SHORT).show();
+                        builder.setTitle("Blocked");
+                        builder.setMessage("Please Pay your fees :");
+                        builder.setPositiveButton("PAY", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Intent i = new Intent(LoginActivity.this, Payment.class);
+                                i.putExtra("cid", response);
+                                startActivity(i);
+
+                            }
+                        });
+                        AlertDialog alertDialog = builder.create();
+                        alertDialog.show();
+
+                }else {
+                       /* Intent i = new Intent(LoginActivity.this, ClientActivity.class);
+                        i.putExtra("cid", response);
+                        startActivity(i);
+                        Db.Insertcuser(cid,"Client","Logged");*/
+
+                    }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(LoginActivity.this, "paycheck "+error.toString(), Toast.LENGTH_SHORT).show();
+
+
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                HashMap<String, String> param = new HashMap<>();
+                param.put("cid", cid);
+                return param;
+            }
+        };
+        request.setRetryPolicy(new DefaultRetryPolicy(30000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        MySingleton.getmInstance(LoginActivity.this).addToRequestQueue(request);
+
+    }
+
+
+    }
+
