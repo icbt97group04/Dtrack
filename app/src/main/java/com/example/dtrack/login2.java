@@ -27,6 +27,7 @@ public class login2 extends AppCompatActivity {
             }
         });
 
+        // batman
         parent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
