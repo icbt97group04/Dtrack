@@ -195,7 +195,7 @@ login.setOnClickListener(new View.OnClickListener() {
         StringRequest request = new StringRequest(Request.Method.POST, uRl, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Toast.makeText(LoginActivity.this, response, Toast.LENGTH_SHORT).show();
+                //TToast.makeText(LoginActivity.this, response, Toast.LENGTH_SHORT).show();
 
                 if(response.length()==1){
                         //Toast.makeText(LoginActivity.this, "Blocked", Toast.LENGTH_SHORT).show();
