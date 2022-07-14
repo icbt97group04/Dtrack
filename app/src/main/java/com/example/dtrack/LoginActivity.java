@@ -197,25 +197,25 @@ login.setOnClickListener(new View.OnClickListener() {
             public void onResponse(String response) {
                 Toast.makeText(LoginActivity.this, response, Toast.LENGTH_SHORT).show();
 
-
                 if(response.length()==1){
-                        Toast.makeText(LoginActivity.this, "Blocked", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(LoginActivity.this, "Blocked", Toast.LENGTH_SHORT).show();
                         builder.setTitle("Warning");
                         builder.setMessage("Please Pay your fees :");
                         builder.setPositiveButton("PAY", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 dialog.cancel();
+                                Intent i = new Intent(LoginActivity.this, ClientActivity.class);
+                                i.putExtra("cid", response);
+                                startActivity(i);
+                                Db.Insertcuser(cid,"Client","Logged");
                             }
                         });
                         AlertDialog alertDialog = builder.create();
                         alertDialog.show();
-                       /* Intent i = new Intent(LoginActivity.this, ClientActivity.class);
-                        i.putExtra("cid", response);
-                        startActivity(i);
-                        Db.Insertcuser(cid,"Client","Logged");*/
+                       /* */
 
-                } else if(response.length()==2) {
+                } else if(response.length()==3) {
                         //Toast.makeText(LoginActivity.this, "Blocked", Toast.LENGTH_SHORT).show();
                         builder.setTitle("Blocked");
                         builder.setMessage("Please Pay your fees :");
@@ -225,17 +225,16 @@ login.setOnClickListener(new View.OnClickListener() {
                                 Intent i = new Intent(LoginActivity.this, Payment.class);
                                 i.putExtra("cid", response);
                                 startActivity(i);
-
                             }
                         });
                         AlertDialog alertDialog = builder.create();
                         alertDialog.show();
 
-                }else {
-                       /* Intent i = new Intent(LoginActivity.this, ClientActivity.class);
-                        i.putExtra("cid", response);
-                        startActivity(i);
-                        Db.Insertcuser(cid,"Client","Logged");*/
+                }else if(response.length()==4) {
+                    Intent i = new Intent(LoginActivity.this, ClientActivity.class);
+                    i.putExtra("cid", response);
+                    startActivity(i);
+                    Db.Insertcuser(response,"Client","Logged");
 
                     }
             }
