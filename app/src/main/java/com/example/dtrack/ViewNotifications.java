@@ -111,7 +111,6 @@ public class ViewNotifications extends AppCompatActivity {
 
         Intent detailIntent = new Intent(this,DisplayNotification.class);
         Notification clickItem = mNotificationList.get(postion);
-
         detailIntent.putExtra("DateTime",clickItem.getDate());
         detailIntent.putExtra("Topic",clickItem.getTopic());
         detailIntent.putExtra("Contetnt",clickItem.getContent());

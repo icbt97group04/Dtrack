@@ -77,6 +77,9 @@ public class DriverPickupList_Fragment extends Fragment {
                     mExampleAdapter = new DropPickAdapter(getContext(), mExampleList);
                     mRecyclerView.setAdapter(mExampleAdapter);
 
+
+
+
                     mExampleAdapter.setOnItemClickListner(new DropPickAdapter.onItemClickListner() {
                         @Override
                         public void onItemClick(int postion) {

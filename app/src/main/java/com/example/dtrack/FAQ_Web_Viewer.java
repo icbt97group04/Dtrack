@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
 public class FAQ_Web_Viewer extends AppCompatActivity {
 
@@ -14,5 +15,8 @@ public class FAQ_Web_Viewer extends AppCompatActivity {
 
         WebView myWebView = (WebView) findViewById(R.id.faqwebview);
         myWebView.loadUrl("https://dtrack.live/");
+
+        // Force links and redirects to open in the WebView instead of in a browser
+        myWebView.setWebViewClient(new WebViewClient());
     }
 }
