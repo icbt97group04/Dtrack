@@ -127,7 +127,7 @@ login.setOnClickListener(new View.OnClickListener() {
                     param.put("email", user);
                     param.put("cpassword", pw);
                     return param;
-
+//585
                 }
             };
 
@@ -206,7 +206,6 @@ login.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 dialog.cancel();
-
                             }
                         });
                         AlertDialog alertDialog = builder.create();
