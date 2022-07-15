@@ -23,7 +23,7 @@ public class Driver_Current_Ride_Fragment extends Fragment {
         void onDriverSent(Boolean input);
     }
 
-    String numberplateno = "BIN - 1234";
+    String numberplateno = "BIN -1234";
     String DRIVER_ID;
 
     @Nullable
