@@ -15,9 +15,6 @@
         android:textColor="#000000"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/drivercurrentrideweview"
-        app:layout_constraintEnd_toStartOf="@+id/tbStartRide"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -25,18 +22,21 @@
         android:id="@+id/drivercurrentrideweview"
         android:layout_width="409dp"
         android:layout_height="550dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textviewRide" />
 
-    <ToggleButton
-        android:id="@+id/tbStartRide"
+    <Switch
+        android:id="@+id/stwithchStartLocationUpdates"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:text="ToggleButton"
-        app:layout_constraintBottom_toTopOf="@+id/drivercurrentrideweview"
+        android:layout_marginTop="16dp"
+        android:text="Start Ride"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintHorizontal_bias="0.492"
+        app:layout_constraintStart_toEndOf="@+id/textviewRide"
+        app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

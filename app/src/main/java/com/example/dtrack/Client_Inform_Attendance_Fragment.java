@@ -1,15 +1,12 @@
 package com.example.dtrack;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.CompoundButton;
-import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
@@ -18,54 +15,98 @@ import androidx.fragment.app.Fragment;
 
 public class Client_Inform_Attendance_Fragment extends Fragment {
 
-    private TextView countDownText;
-    private ToggleButton confirmButton;
-    private ToggleButton morningButton;
-    private ToggleButton afternoonButton;
-    private CountDownTimer countDownTimer;
-    boolean timerRunning;
-    boolean commingTomorrow;
-    boolean commingTomorrowMorning;
-    boolean commingTomorrowAfternoon;
-    private DBHelper Db;
+    private Client_Inform_Attendance_FragmentLister listner;
 
+    public interface Client_Inform_Attendance_FragmentLister {
+        void onClientUpdatedAttendance(Boolean morning, Boolean afternoon);
+    }
 
-    private long tiemeLeftInMilliseconds = 432000;
+    boolean commingTomorrow = false;
+    boolean commingTomorrowMorning = false;
+    boolean commingTomorrowAfternoon = false;
+    private String CLIENT_ID;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_client_infrom_attendance,container,false);
-    }
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+        View v = inflater.inflate(R.layout.fragment_client_infrom_attendance, container, false);
 
-        ToggleButton confirmButton = (ToggleButton) view.findViewById(R.id.tb_on_off_inform);
-        ToggleButton morningButton = (ToggleButton) view.findViewById(R.id.tb_on_off_inform_morning);
-        ToggleButton afternoonButton = (ToggleButton) view.findViewById(R.id.tb_on_off_inform_afternoon);
+        ToggleButton confirmButton = (ToggleButton) v.findViewById(R.id.tb_on_off_inform);
+        ToggleButton morningButton = (ToggleButton) v.findViewById(R.id.tb_on_off_inform_morning);
+        ToggleButton afternoonButton = (ToggleButton) v.findViewById(R.id.tb_on_off_inform_afternoon);
         morningButton.setEnabled(false);
         afternoonButton.setEnabled(false);
 
+
         confirmButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
+                if (confirmButton.isChecked()) {
+                    commingTomorrow = true;
                     morningButton.setEnabled(true);
                     afternoonButton.setEnabled(true);
-                    Db=new DBHelper(getActivity());
-       Intent intent = getActivity().getIntent();
-        String CID = intent.getStringExtra("cid");
-       Boolean cds = Db.checkusername(CID);
 
-        if (cds=true){
-            Toast.makeText(getActivity(), "LOGGGED IN", Toast.LENGTH_SHORT).show();
-        }
+
                 } else {
+                    commingTomorrow = false;
                     morningButton.setEnabled(false);
                     afternoonButton.setEnabled(false);
                 }
             }
         });
+
+        morningButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (morningButton.isChecked()) {
+                    commingTomorrowMorning = true;
+                } else {
+                    commingTomorrowMorning = false;
+                }
+                update();
+            }
+        });
+        afternoonButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (afternoonButton.isChecked()) {
+                    commingTomorrowAfternoon = true;
+                } else {
+                    commingTomorrowAfternoon = false;
+                }
+                update();
+            }
+        });
+        return v;
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        if (context instanceof Client_Inform_Attendance_Fragment.Client_Inform_Attendance_FragmentLister) {
+            listner = (Client_Inform_Attendance_Fragment.Client_Inform_Attendance_FragmentLister) context;
+        } else {
+            throw new RuntimeException(context.toString() + "Must implement Fragment lister ");
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        listner = null;
+    }
+
+
+    public void update() {
+        listner.onClientUpdatedAttendance(commingTomorrowMorning, commingTomorrowAfternoon);
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        CLIENT_ID = ((ClientActivity) getActivity()).CLIENT_ID;
+
+        Intent intent = getActivity().getIntent();
+        String CID = intent.getStringExtra("cid");
+
 
     }
 

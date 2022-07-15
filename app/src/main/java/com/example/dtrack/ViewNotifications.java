@@ -51,15 +51,7 @@ public class ViewNotifications extends AppCompatActivity {
         mRequestQueue = Volley.newRequestQueue(this);
         parseJSON();
 
-        //update loop
-        Handler handler=new Handler();
-        handler.post(new Runnable(){
-            @Override
-            public void run() {
-                //parseJSON();
-                handler.postDelayed(this,500); // set time here to refresh textView
-            }
-        });
+
     }
     private void parseJSON() {
 

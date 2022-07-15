@@ -15,6 +15,8 @@ import androidx.fragment.app.Fragment;
 
 public class ClientAccount_Fragment extends Fragment {
 
+    String CLIENT_ID;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -24,6 +26,8 @@ public class ClientAccount_Fragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         super.onViewCreated(view, savedInstanceState);
+
+        CLIENT_ID = ((ClientActivity)getActivity()).CLIENT_ID;
 
         TextView contatcDriver = (TextView) view.findViewById(R.id.tvContatcDriver);
         TextView contactSp = (TextView) view.findViewById(R.id.tvContatcSP);
@@ -80,7 +84,8 @@ public class ClientAccount_Fragment extends Fragment {
         chageDetails.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), ClientChangeDetails.class);
+                Intent intent = new Intent(getActivity(), ClientEditAccountDetails.class);
+                intent.putExtra("cid",CLIENT_ID);
                 startActivity(intent);
             }
         });

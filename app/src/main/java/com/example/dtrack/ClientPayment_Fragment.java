@@ -30,17 +30,25 @@ public class ClientPayment_Fragment extends Fragment {
     private paymentAdapter mExampleAdapter;
     private ArrayList<Payment> mExampleList;
     private RequestQueue mRequestQueue;
-    private String userid = "4";
+    private String CLIENT_ID;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_client_payment, container, false);
+
+
+
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+
+
+       // CLIENT_ID = getActivity().getIntent().getStringExtra("com.sample.MESSAGE");
+        CLIENT_ID = ((ClientActivity)getActivity()).CLIENT_ID;
 
         mRecyclerView = view.findViewById(R.id.recycler_view_payment);
         mRecyclerView.setHasFixedSize(true);
@@ -55,7 +63,7 @@ public class ClientPayment_Fragment extends Fragment {
 
     private void parseJSON() {
 
-        String url = "https://dtrack.live/generatepaymentarray.php?userid=" + userid;
+        String url = "https://dtrack.live/generatepaymentarray.php?userid=" + CLIENT_ID;
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override

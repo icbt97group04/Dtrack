@@ -22,9 +22,9 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 public class ViewChildren extends AppCompatActivity {
-    String cid;
+
     private RequestQueue mRequestQueue;
-    private ArrayList<DropPick> mExampleList;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +46,7 @@ public class ViewChildren extends AppCompatActivity {
 
                     JSONObject hit = jsonArray.getJSONObject(0);
 
-
+                    String jsoncid = hit.getString("cid");
                     String jsonemail = hit.getString("email");
                     String jsonfname = hit.getString("fname");
                     String jsonlname = hit.getString("lname");
@@ -88,7 +88,9 @@ public class ViewChildren extends AppCompatActivity {
                     tvViewPayments.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            //openpayments and make payments
+                            Intent i = new Intent(ViewChildren.this, DriverViewPayments.class);
+                            i.putExtra("cid",cid );
+                            startActivity(i);
                         }
                     });
 

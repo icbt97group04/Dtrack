@@ -1,5 +1,6 @@
 package com.example.dtrack;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,6 +8,8 @@ import android.view.ViewGroup;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Switch;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -14,17 +17,74 @@ import androidx.fragment.app.Fragment;
 
 public class Driver_Current_Ride_Fragment extends Fragment {
 
+    private Driver_Current_Ride_FragmentLister listner;
+
+    public interface Driver_Current_Ride_FragmentLister {
+        void onDriverSent(Boolean input);
+    }
+
+    String numberplateno = "BIN - 1234";
+    String DRIVER_ID;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_driver_current_ride,container,false);
+        View v = inflater.inflate(R.layout.fragment_driver_current_ride, container, false);
+
+        DRIVER_ID = ((DriverActiviy2)getActivity()).DID;
+        
+
+        Switch setlocationUpdates = v.findViewById(R.id.stwithchStartLocationUpdates);
+
+        setlocationUpdates.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (setlocationUpdates.isChecked()) {
+                    Boolean input = true;
+                    Toast.makeText(getContext(), "The location update will start", Toast.LENGTH_SHORT).show();
+                    listner.onDriverSent(input);
+
+
+                } else {
+                    Boolean input = false;
+                    Toast.makeText(getContext(), "Location will stop updating ", Toast.LENGTH_SHORT).show();
+                    listner.onDriverSent(input);
+                }
+            }
+        });
+
+        if( ((DriverActiviy2)getActivity()).isLocationUpdateChecked){
+            setlocationUpdates.setChecked(true);
+        }
+
+
+        return v;
     }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        if(context instanceof Driver_Current_Ride_FragmentLister){
+            listner = (Driver_Current_Ride_FragmentLister) context;
+        }else {
+            throw new RuntimeException(context.toString() + "Must implement Fragment lister ");
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        listner = null;
+    }
+
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+
+
         WebView myWebView = (WebView) view.findViewById(R.id.drivercurrentrideweview);
-        myWebView.loadUrl("https://dtrack.live/map.php");
+        myWebView.loadUrl("https://dtrack.live/drivermap.php?did"+DRIVER_ID);
 
         // Enable Javascript
         WebSettings webSettings = myWebView.getSettings();
@@ -32,6 +92,9 @@ public class Driver_Current_Ride_Fragment extends Fragment {
 
         // Force links and redirects to open in the WebView instead of in a browser
         myWebView.setWebViewClient(new WebViewClient());
+
+
     }
+
 }
 

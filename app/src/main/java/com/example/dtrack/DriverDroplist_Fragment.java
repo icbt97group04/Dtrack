@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -23,15 +24,22 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class DriverDroplist_Fragment extends Fragment {
     private RecyclerView mRecyclerView;
     private DropPickAdapter mExampleAdapter;
     private ArrayList<DropPick> mExampleList;
     private RequestQueue mRequestQueue;
-    private String noplateNo = "NQ-4568"; //get no plate no from the database
-    private String shift = "afternoon"; //get time
+
+
+
+    private String noplateNo = "NA-4598"; //get no plate no from the database
+    //private String shift =  DriverActiviy2.currentShift;//
+    private String shift = "morning";//
 
     @Nullable
     @Override
@@ -41,6 +49,12 @@ public class DriverDroplist_Fragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+
+       // noplateNo  = ((DriverActivity)getActivity()).VEHICLE_NUMBER;
+        Toast.makeText(getContext(), noplateNo, Toast.LENGTH_SHORT).show();
+
+        Toast.makeText(getContext(),shift , Toast.LENGTH_SHORT).show();
 
         mRecyclerView = view.findViewById(R.id.driverdroplist);
         mRecyclerView.setHasFixedSize(true);
@@ -55,7 +69,8 @@ public class DriverDroplist_Fragment extends Fragment {
     }
     private void parseJSON() {
 
-        String url = "https://dtrack.live/generatepickupanddroparray.php?numberplateid="+noplateNo+"&shift=" +shift;
+        String url = "https://dtrack.live/generatepickupanddroparray.php?action=TRAVELING&numberplateid="+noplateNo+"&shift=" +shift;
+
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override

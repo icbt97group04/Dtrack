@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -51,7 +52,7 @@ public class DropPickAdapter extends RecyclerView.Adapter<DropPickAdapter.Exampl
         String firstname = currentItem.getFname();
         String lastname = currentItem.getLname();
 
-        holder.mTextViewChildrenName.setText(firstname + "" +lastname);
+        holder.mTextViewChildrenName.setText(firstname + " " +lastname);
     }
 
     @Override
@@ -78,6 +79,19 @@ public class DropPickAdapter extends RecyclerView.Adapter<DropPickAdapter.Exampl
                         int position = getAdapterPosition();
                         if(position!= RecyclerView.NO_POSITION){
                             mListner.onItemClick(position);
+                            Toast.makeText(mContext, "this is number: "+position+" Image Selected", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }
+            });
+            mTextViewChildrenName.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(mListner != null){
+                        int position = getAdapterPosition();
+                        if(position!= RecyclerView.NO_POSITION){
+                            mListner.onItemClick(position);
+                            Toast.makeText(mContext, "this is number: "+position+" Name Selected", Toast.LENGTH_SHORT).show();
                         }
                     }
                 }
