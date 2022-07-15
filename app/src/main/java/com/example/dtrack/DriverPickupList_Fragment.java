@@ -1,6 +1,7 @@
 package com.example.dtrack;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,27 +10,33 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class DriverPickupList_Fragment extends Fragment {
 
@@ -38,23 +45,39 @@ public class DriverPickupList_Fragment extends Fragment {
     private ArrayList<DropPick> mExampleList;
     private RequestQueue mRequestQueue;
     private String noplateNo = "NA-4598"; //get no plate no from the database
-    private String shift = "morning";
+    String shift ="morning";
 
+    LocalTime time;
 
-    LocalTime time ;
-
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_driver_pickup_list,container,false);
+        View v = inflater.inflate(R.layout.fragment_driver_pickup_list, container, false);
+/*
+        LocalTime time1 = LocalTime.of(07, 20);
+        LocalTime time2 = LocalTime.of(10, 30);
+
+        LocalTime currentTime = LocalTime.now();
+
+        // isAfter() method
+        if(currentTime.isAfter(time2) && currentTime.isBefore(time2)) {
+            Toast.makeText(getContext(), "" + DateFormat.format("kk:mm", System.currentTimeMillis()), Toast.LENGTH_SHORT).show();
+        }
+        */
+
+        // isBefore() method
+
+        //Toast.makeText(getContext(), "" + dateinstring, Toast.LENGTH_SHORT).show();
+        // String currentDate = DateFormat.format("kk:mm", System.currentTimeMillis());
+        //Toast.makeText(getContext(), "" + DateFormat.format("kk:mm", System.currentTimeMillis()), Toast.LENGTH_SHORT).show();
+
+        return v;
     }
+
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-       // shift  = ((DriverActiviy2)getActivity()).currentShift;
-
-        //Toast.makeText(getContext(),shift , Toast.LENGTH_SHORT).show();
 
         mRecyclerView = view.findViewById(R.id.driverPickuplist);
         mRecyclerView.setHasFixedSize(true);
@@ -62,12 +85,13 @@ public class DriverPickupList_Fragment extends Fragment {
 
         mExampleList = new ArrayList<>();
         mRequestQueue = Volley.newRequestQueue(getContext());
-        setcurrentShift();
+        parseJSON();
 
     }
-    private void parseJSON(String shift) {
 
-        String url = "https://dtrack.live/generatepickupanddroparray.php?action=YES&numberplateid="+noplateNo+"&shift=" +shift;
+    private void parseJSON() {
+
+        String url = "https://dtrack.live/generatepickupanddroparray.php?action=YES&numberplateid=" + noplateNo + "&shift=" + shift;
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
@@ -89,8 +113,6 @@ public class DriverPickupList_Fragment extends Fragment {
                     mRecyclerView.setAdapter(mExampleAdapter);
 
 
-
-
                     mExampleAdapter.setOnItemClickListner(new DropPickAdapter.onItemClickListner() {
                         @Override
                         public void onItemClick(int postion) {
@@ -98,6 +120,13 @@ public class DriverPickupList_Fragment extends Fragment {
                             DropPick clickItem = mExampleList.get(postion);
                             detailIntent.putExtra("cid", clickItem.getCid());
                             startActivity(detailIntent);
+                        }
+
+                        @Override
+                        public void onUpdateClick(int postion) {
+                            DropPick clickItem = mExampleList.get(postion);
+                            markAttendance( clickItem.getCid());
+                            mExampleAdapter.notifyDataSetChanged();
                         }
                     });
                 } catch (JSONException e) {
@@ -114,56 +143,46 @@ public class DriverPickupList_Fragment extends Fragment {
         mRequestQueue.add(request);
     }
 
+    String server_urldetai =  "https://dtrack.live/markAttendance.php";
+    public void markAttendance(String cid) {
+        {
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, server_urldetai, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
 
-    public void setcurrentShift(){
+                    Toast.makeText(getContext(), cid +"Details Updated", Toast.LENGTH_SHORT).show();
 
-        SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
-        Date MorningStartTime = null;
-        try {
-            MorningStartTime = dateFormat.parse("06:00");
-        } catch (ParseException e) {
-            e.printStackTrace();
+                }
+            }
+                    , new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Toast.makeText(getContext(), "ERROR....." + error, Toast.LENGTH_SHORT).show();
+                    StringWriter writer = new StringWriter();
+                    PrintWriter printWriter = new PrintWriter(writer);
+                    error.printStackTrace(printWriter);
+                    printWriter.flush();
+                    // String stackTrace = writer.toString();
+                    // error.printStackTrace( );
+                }
+            }) {
+                @Override
+                public Map<String, String> getParams() throws AuthFailureError {
+                    Map<String, String> Params = new HashMap<String, String>();
+                        Params.put("state", "Traveling");
+                    Params.put("shift", "morning");
+                    Params.put("cid", cid);
+
+                    //Toast.makeText(DriverActivity.this, number+"getv3", Toast.LENGTH_SHORT).show();
+                    return Params;
+                }
+            };
+            Mysingnalton.getInstance(getContext()).addTorequestque(stringRequest);
+            //Toast.makeText(DriverActivity.this, responsez+"getvum", Toast.LENGTH_SHORT).show();
+
+
         }
-        Date MorningEndTime = null;
-        try {
-            MorningEndTime = dateFormat.parse("08:00");
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        Date afternoonStartTime = null;
-        try {
-            afternoonStartTime = dateFormat.parse("11:00");
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        Date afternoonEndTime = null;
-        try {
-            afternoonEndTime = dateFormat.parse("2:30");
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        Date CurrentTime = null;
-        try {
-            Date currentTime = Calendar.getInstance().getTime();
-            CurrentTime = dateFormat.parse(dateFormat.format(new Date()));
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        if (CurrentTime.after(MorningStartTime) && CurrentTime.before(MorningEndTime)) {
-            String shift = "morning";
-            Toast.makeText(getContext(),shift,Toast.LENGTH_SHORT).show();
-            parseJSON(shift);
-        }
-        if (CurrentTime.after(afternoonStartTime) && CurrentTime.before(afternoonEndTime)) {
-            String shift1 = "afternoon";
-            Toast.makeText(getContext(),shift1,Toast.LENGTH_SHORT).show();
-            parseJSON(shift1);
-        }
-
-
-
-
     }
+
+
 }

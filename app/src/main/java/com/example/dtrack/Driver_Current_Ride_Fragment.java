@@ -2,6 +2,7 @@ package com.example.dtrack;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +32,9 @@ public class Driver_Current_Ride_Fragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_driver_current_ride, container, false);
 
+
+
+        Toast.makeText(getContext(),"" + DateFormat.format("kk:mm", System.currentTimeMillis()) , Toast.LENGTH_SHORT).show();
         DRIVER_ID = ((DriverActiviy2)getActivity()).DID;
         
 
@@ -81,7 +85,7 @@ public class Driver_Current_Ride_Fragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-
+        DRIVER_ID = ((DriverActiviy2)getActivity()).DID;
 
         WebView myWebView = (WebView) view.findViewById(R.id.drivercurrentrideweview);
         myWebView.loadUrl("https://dtrack.live/drivermap.php?did"+DRIVER_ID);

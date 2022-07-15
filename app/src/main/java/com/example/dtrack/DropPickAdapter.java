@@ -25,6 +25,7 @@ public class DropPickAdapter extends RecyclerView.Adapter<DropPickAdapter.Exampl
     public interface onItemClickListner {
 
         void onItemClick(int postion);
+        void onUpdateClick(int postion);
     }
     public void setOnItemClickListner(onItemClickListner listner){
 
@@ -72,18 +73,7 @@ public class DropPickAdapter extends RecyclerView.Adapter<DropPickAdapter.Exampl
             mTextViewChildrenName = itemView.findViewById(R.id.text_view_children_name);
             mimageviewmark = itemView.findViewById(R.id.image_view_pickanddropcheck);
 
-            mimageviewmark.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if(mListner != null){
-                        int position = getAdapterPosition();
-                        if(position!= RecyclerView.NO_POSITION){
-                            mListner.onItemClick(position);
-                            Toast.makeText(mContext, "this is number: "+position+" Image Selected", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                }
-            });
+
             mTextViewChildrenName.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -105,6 +95,19 @@ public class DropPickAdapter extends RecyclerView.Adapter<DropPickAdapter.Exampl
                         int position = getAdapterPosition();
                         if(position!= RecyclerView.NO_POSITION){
                             mListner.onItemClick(position);
+                        }
+                    }
+                }
+            });
+
+            mimageviewmark.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(mListner != null){
+                        int position = getAdapterPosition();
+                        if(position!= RecyclerView.NO_POSITION){
+                            mListner.onUpdateClick(position);
+
                         }
                     }
                 }
