@@ -1,45 +1,36 @@
 package com.example.dtrack;
 
+import android.app.ProgressDialog;
 import android.os.Build;
+import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
+
+import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class AppOps {
 
-    String NO_PLATE;
-
-    public AppOps(String NO_PLATE) {
-        this.NO_PLATE = NO_PLATE;
-    }
-
-    public String getNO_PLATE() {
-        return NO_PLATE;
-    }
-
-    public void setNO_PLATE(String NO_PLATE) {
-        this.NO_PLATE = NO_PLATE;
-    }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     public static String getShift() throws ParseException {
 
-        String pattern = "HH:mm";
-        SimpleDateFormat sdf = new SimpleDateFormat(pattern);
-
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm");
-        LocalTime localTime = LocalTime.now();
-
-
         LocalTime now = LocalTime.now();
         LocalTime limit1 = LocalTime.parse("06:00");
         LocalTime limit2 = LocalTime.parse("08:00");
-        LocalTime limit3 = LocalTime.parse("08:00");
+        LocalTime limit3 = LocalTime.parse("11:00");
         LocalTime limit4 = LocalTime.parse("14:00");
         Boolean morning = now.isAfter(limit1) && now.isBefore(limit2);
         Boolean afternoon = now.isAfter(limit3) && now.isBefore(limit4);
@@ -48,8 +39,7 @@ public class AppOps {
         } else if (afternoon) {
             return "afternoon";
         } else {
-            return "shift";
+            return "Noshift";
         }
     }
-
 }

@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -63,7 +64,7 @@ public class DriverActiviy2 extends AppCompatActivity implements Driver_Current_
 
     String server_url = "https://dtrack.live/Dbconfig.php";
 
-    String VEHICLE_NO;
+    String noplateno;
     String DID;
     //location request
     LocationCallback locationCallBack;
@@ -72,21 +73,33 @@ public class DriverActiviy2 extends AppCompatActivity implements Driver_Current_
     AlertDialog.Builder builder;
     private Handler mhandler = new Handler();
 
+    AppOps appOps;
+    String shift;
+
+
     //goolgle api serverices for location
 
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_driver_activiy2);
 
+
+        try {
+            shift = appOps.getShift();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
         Intent intent = getIntent();
         DID = intent.getStringExtra("did");
+        noplateno =intent.getStringExtra("noplateno");
 
-        String newid= getNoplateno(DID);
 
 
-        Toast.makeText(DriverActiviy2.this, newid, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(DriverActiviy2.this, noplateno, Toast.LENGTH_SHORT).show();
 
 
         BottomNavigationView bottomnav = findViewById(R.id.driver_bottom_nav);
@@ -113,11 +126,9 @@ public class DriverActiviy2 extends AppCompatActivity implements Driver_Current_
         locationRequest.setPriority(Priority.PRIORITY_HIGH_ACCURACY);
         updategps();
 
-
-        setcurrentShift();
-
     }
 
+    /*
     public void setcurrentShift(){
 
 
@@ -163,7 +174,7 @@ public class DriverActiviy2 extends AppCompatActivity implements Driver_Current_
 
     }
 
-
+*/
     private void updategps() {
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(DriverActiviy2.this);
 

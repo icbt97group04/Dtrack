@@ -10,6 +10,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -24,44 +25,46 @@ public class Driver_Current_Ride_Fragment extends Fragment {
         void onDriverSent(Boolean input);
     }
 
-    String numberplateno = "BIN -1234";
+
     String DRIVER_ID;
+
+
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_driver_current_ride, container, false);
 
-
-
-        Toast.makeText(getContext(),"" + DateFormat.format("kk:mm", System.currentTimeMillis()) , Toast.LENGTH_SHORT).show();
-        DRIVER_ID = ((DriverActiviy2)getActivity()).DID;
-        
-
         Switch setlocationUpdates = v.findViewById(R.id.stwithchStartLocationUpdates);
+        TextView textviewRide = v.findViewById(R.id.textviewRide);
 
-        setlocationUpdates.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (setlocationUpdates.isChecked()) {
-                    Boolean input = true;
-                    Toast.makeText(getContext(), "The location update will start", Toast.LENGTH_SHORT).show();
-                    listner.onDriverSent(input);
-
-
-                } else {
-                    Boolean input = false;
-                    Toast.makeText(getContext(), "Location will stop updating ", Toast.LENGTH_SHORT).show();
-                    listner.onDriverSent(input);
-                }
-            }
-        });
-
-        if( ((DriverActiviy2)getActivity()).isLocationUpdateChecked){
-            setlocationUpdates.setChecked(true);
+        if(((DriverActiviy2)getActivity()).shift.equals("Noshift")){
+            textviewRide.setText("No shift at this moment ");
+            setlocationUpdates.setClickable(false);
         }
+        else{
+            textviewRide.setText("Start Ride " + ((DriverActiviy2)getActivity()).shift);
+            setlocationUpdates.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (setlocationUpdates.isChecked()) {
+                        Boolean input = true;
+                        Toast.makeText(getContext(), "The location update will start", Toast.LENGTH_SHORT).show();
+                        listner.onDriverSent(input);
 
 
+                    } else {
+                        Boolean input = false;
+                        Toast.makeText(getContext(), "Location will stop updating ", Toast.LENGTH_SHORT).show();
+                        listner.onDriverSent(input);
+                    }
+                }
+            });
+
+            if( ((DriverActiviy2)getActivity()).isLocationUpdateChecked){
+                setlocationUpdates.setChecked(true);
+            }
+        }
         return v;
     }
 
@@ -87,8 +90,10 @@ public class Driver_Current_Ride_Fragment extends Fragment {
 
         DRIVER_ID = ((DriverActiviy2)getActivity()).DID;
 
+        //Toast.makeText(getContext(), DRIVER_ID, Toast.LENGTH_SHORT).show();
+
         WebView myWebView = (WebView) view.findViewById(R.id.drivercurrentrideweview);
-        myWebView.loadUrl("https://dtrack.live/drivermap.php?did"+DRIVER_ID);
+        myWebView.loadUrl("https://dtrack.live/drivermap.php?did="+DRIVER_ID);
 
         // Enable Javascript
         WebSettings webSettings = myWebView.getSettings();

@@ -9,6 +9,18 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.util.HashMap;
+import java.util.Map;
 
 public class DriverMakePayments extends AppCompatActivity {
 
@@ -62,14 +74,55 @@ public class DriverMakePayments extends AppCompatActivity {
             btn_pay.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    //Uri uri = Uri.parse("https://dtrack.live/payhere.php?PaymentID=" + payemntID);
-                    //Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                    //startActivity(intent);
+
+
+                    updateAccountDetails(payemntID);
+
                 }
             });
         }
 
 
 
+    }
+    String server_url = "https://dtrack.live/updatecashonhandpayments.php";
+
+    public void updateAccountDetails(String payemntID) {
+        {
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, server_url, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+
+                    Toast.makeText(DriverMakePayments.this, "Details Updated", Toast.LENGTH_SHORT).show();
+                    finish();
+                    startActivity(getIntent());
+                }
+            }
+                    , new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Toast.makeText(DriverMakePayments.this, "ERROR....." + error, Toast.LENGTH_SHORT).show();
+                    StringWriter writer = new StringWriter();
+                    PrintWriter printWriter = new PrintWriter(writer);
+                    error.printStackTrace(printWriter);
+                    printWriter.flush();
+
+                }
+            }) {
+                @Override
+                public Map<String, String> getParams() throws AuthFailureError {
+                    Map<String, String> Params = new HashMap<String, String>();
+                    Params.put("payemntID", payemntID);
+
+
+                    //Toast.makeText(DriverActivity.this, number+"getv3", Toast.LENGTH_SHORT).show();
+                    return Params;
+                }
+            };
+            Mysingnalton.getInstance(DriverMakePayments.this).addTorequestque(stringRequest);
+            //Toast.makeText(DriverActivity.this, responsez+"getvum", Toast.LENGTH_SHORT).show();
+
+
+        }
     }
 }

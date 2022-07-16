@@ -156,12 +156,8 @@ public class LoginActivity extends AppCompatActivity {
 
                     if (response.length() > 0) {
                         //Toast.makeText(LoginActivity.this, response, Toast.LENGTH_SHORT).show();
-                        Intent i = new Intent(LoginActivity.this, DriverActiviy2.class);
-                        i.putExtra("did", res);
-                        startActivity(i);
-                        Db.Insertcuser(response, "Driver", "Logged");
-                        progressDialog.dismiss();
-                        finish();
+                        getvehiclenumber(response);
+
                     } else {
                         Toast.makeText(LoginActivity.this, "Wrong Password", Toast.LENGTH_SHORT).show();
                         progressDialog.dismiss();
@@ -259,6 +255,56 @@ public class LoginActivity extends AppCompatActivity {
         request.setRetryPolicy(new DefaultRetryPolicy(30000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         MySingleton.getmInstance(LoginActivity.this).addToRequestQueue(request);
 
+    }
+
+    public String getvehiclenumber(String DID) {
+        if (DID.isEmpty()) {
+            Toast.makeText(LoginActivity.this, "Login Again", Toast.LENGTH_SHORT).show();
+        } else {
+            final ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this);
+           /* progressDialog.setTitle("Loading Data");
+            progressDialog.setCancelable(false);
+            progressDialog.setCanceledOnTouchOutside(false);
+            progressDialog.setIndeterminate(false);
+            progressDialog.show();*/
+            String uRl = "https://dtrack.live/darcgetno.php";
+            StringRequest request = new StringRequest(Request.Method.POST, uRl, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    if (response.length() > 0) {
+
+                        Intent i = new Intent(LoginActivity.this, DriverActiviy2.class);
+                        i.putExtra("did", DID);
+                        i.putExtra("noplateno", response);
+                        startActivity(i);
+                        Db.Insertcuser(response, "Driver", "Logged");
+                        progressDialog.dismiss();
+
+                    } else {
+                        Toast.makeText(LoginActivity.this, response, Toast.LENGTH_SHORT).show();
+                        // progressDialog.dismiss();
+                    }
+
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Toast.makeText(LoginActivity.this, error.toString() + "getvehicleError", Toast.LENGTH_SHORT).show();
+                    progressDialog.dismiss();
+                }
+            }) {
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    HashMap<String, String> param = new HashMap<>();
+                    param.put("DID", DID);
+                    return param;
+                }
+            };
+            request.setRetryPolicy(new DefaultRetryPolicy(30000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+            MySingleton.getmInstance(LoginActivity.this).addToRequestQueue(request);
+            //Toast.makeText(LoginActivity.this, user+"  "+pw, Toast.LENGTH_SHORT).show();
+        }
+        return DID;
     }
 
 

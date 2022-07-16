@@ -1,12 +1,14 @@
 package com.example.dtrack;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
@@ -19,6 +21,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.text.ParseException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -31,15 +34,27 @@ public class ClientActivity extends AppCompatActivity implements  Client_Inform_
         public Boolean IsLoggedIn = true;
         public static String CLIENT_ID ;
         public static String Email ;
+        String shift;
+        AppOps appOps;
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_client);
 
+
+        try {
+            shift = appOps.getShift();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
         Intent intent = getIntent();
         CLIENT_ID = intent.getStringExtra("cid");
-        // Email = intent.getStringExtra("email");
+
+
+
 
 
         //Toast.makeText(ClientActivity.this, email2 , Toast.LENGTH_SHORT).show();

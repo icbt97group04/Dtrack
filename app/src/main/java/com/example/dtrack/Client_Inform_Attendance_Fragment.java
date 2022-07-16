@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
+import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
@@ -31,35 +32,32 @@ public class Client_Inform_Attendance_Fragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_client_infrom_attendance, container, false);
 
-        ToggleButton confirmButton = (ToggleButton) v.findViewById(R.id.tb_on_off_inform);
+        TextView warningtext =  (TextView) v.findViewById(R.id.warningtext);
         ToggleButton morningButton = (ToggleButton) v.findViewById(R.id.tb_on_off_inform_morning);
         ToggleButton afternoonButton = (ToggleButton) v.findViewById(R.id.tb_on_off_inform_afternoon);
-        morningButton.setEnabled(false);
-        afternoonButton.setEnabled(false);
 
+        if(!((ClientActivity)getActivity()).shift.equals("Noshift")){
+            warningtext.setText("Attendance update is disabled !!! ");
+            morningButton.setEnabled(false);
+            afternoonButton.setEnabled(false);
 
-        confirmButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (confirmButton.isChecked()) {
-                    commingTomorrow = true;
-                    morningButton.setEnabled(true);
-                    afternoonButton.setEnabled(true);
+        }
 
-
-                } else {
-                    commingTomorrow = false;
-                    morningButton.setEnabled(false);
-                    afternoonButton.setEnabled(false);
-                }
-            }
-        });
+        if(commingTomorrowMorning){
+            morningButton.setEnabled(true);
+        }
+        if(commingTomorrowAfternoon){
+            morningButton.setEnabled(true);
+        }
 
         morningButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (morningButton.isChecked()) {
                     commingTomorrowMorning = true;
+                    morningButton.setText("Yes");
                 } else {
                     commingTomorrowMorning = false;
+                    morningButton.setText("No");
                 }
                 update();
             }
@@ -68,8 +66,10 @@ public class Client_Inform_Attendance_Fragment extends Fragment {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (afternoonButton.isChecked()) {
                     commingTomorrowAfternoon = true;
+                    afternoonButton.setText("Yes");
                 } else {
                     commingTomorrowAfternoon = false;
+                    afternoonButton.setText("Yes");
                 }
                 update();
             }

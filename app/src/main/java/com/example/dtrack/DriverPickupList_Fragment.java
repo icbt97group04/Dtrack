@@ -72,13 +72,13 @@ public class DriverPickupList_Fragment extends Fragment {
         }
 
 
-        parseJSON(shift);
+        parseJSON();
 
     }
 
-    private void parseJSON(String shift) {
+    private void parseJSON( ) {
 
-        String url = "https://dtrack.live/generatepickupanddroparray.php?action=YES&numberplateid=" + noplateNo + "&shift=" + shift;
+        String url = "https://dtrack.live/generatepickupanddroparray.php?action=YES&numberplateid=" + noplateNo + "&shift=" + ((DriverActiviy2)getActivity()).shift;
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
@@ -158,7 +158,7 @@ public class DriverPickupList_Fragment extends Fragment {
                 public Map<String, String> getParams() throws AuthFailureError {
                     Map<String, String> Params = new HashMap<String, String>();
                     Params.put("state", "Traveling");
-                    Params.put("shift", "morning");
+                    Params.put("shift", shift);
                     Params.put("cid", cid);
 
                     //Toast.makeText(DriverActivity.this, number+"getv3", Toast.LENGTH_SHORT).show();
