@@ -31,10 +31,7 @@ import org.json.JSONObject;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -45,36 +42,18 @@ public class DriverPickupList_Fragment extends Fragment {
     private ArrayList<DropPick> mExampleList;
     private RequestQueue mRequestQueue;
     private String noplateNo = "NA-4598"; //get no plate no from the database
-    String shift ="morning";
+    String shift;
+    AppOps appOps;
 
-    LocalTime time;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_driver_pickup_list, container, false);
-/*
-        LocalTime time1 = LocalTime.of(07, 20);
-        LocalTime time2 = LocalTime.of(10, 30);
-
-        LocalTime currentTime = LocalTime.now();
-
-        // isAfter() method
-        if(currentTime.isAfter(time2) && currentTime.isBefore(time2)) {
-            Toast.makeText(getContext(), "" + DateFormat.format("kk:mm", System.currentTimeMillis()), Toast.LENGTH_SHORT).show();
-        }
-        */
-
-        // isBefore() method
-
-        //Toast.makeText(getContext(), "" + dateinstring, Toast.LENGTH_SHORT).show();
-        // String currentDate = DateFormat.format("kk:mm", System.currentTimeMillis());
-        //Toast.makeText(getContext(), "" + DateFormat.format("kk:mm", System.currentTimeMillis()), Toast.LENGTH_SHORT).show();
-
-        return v;
+        return inflater.inflate(R.layout.fragment_driver_pickup_list, container, false);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -85,11 +64,19 @@ public class DriverPickupList_Fragment extends Fragment {
 
         mExampleList = new ArrayList<>();
         mRequestQueue = Volley.newRequestQueue(getContext());
-        parseJSON();
+
+        try {
+            shift = appOps.getShift();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+
+        parseJSON(shift);
 
     }
 
-    private void parseJSON() {
+    private void parseJSON(String shift) {
 
         String url = "https://dtrack.live/generatepickupanddroparray.php?action=YES&numberplateid=" + noplateNo + "&shift=" + shift;
 
@@ -125,7 +112,7 @@ public class DriverPickupList_Fragment extends Fragment {
                         @Override
                         public void onUpdateClick(int postion) {
                             DropPick clickItem = mExampleList.get(postion);
-                            markAttendance( clickItem.getCid());
+                            markAttendance(clickItem.getCid());
                             mExampleAdapter.notifyDataSetChanged();
                         }
                     });
@@ -143,14 +130,15 @@ public class DriverPickupList_Fragment extends Fragment {
         mRequestQueue.add(request);
     }
 
-    String server_urldetai =  "https://dtrack.live/markAttendance.php";
+    String server_urldetai = "https://dtrack.live/markAttendance.php";
+
     public void markAttendance(String cid) {
         {
             StringRequest stringRequest = new StringRequest(Request.Method.POST, server_urldetai, new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
 
-                    Toast.makeText(getContext(), cid +"Details Updated", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), cid + "Details Updated", Toast.LENGTH_SHORT).show();
 
                 }
             }
@@ -169,7 +157,7 @@ public class DriverPickupList_Fragment extends Fragment {
                 @Override
                 public Map<String, String> getParams() throws AuthFailureError {
                     Map<String, String> Params = new HashMap<String, String>();
-                        Params.put("state", "Traveling");
+                    Params.put("state", "Traveling");
                     Params.put("shift", "morning");
                     Params.put("cid", cid);
 

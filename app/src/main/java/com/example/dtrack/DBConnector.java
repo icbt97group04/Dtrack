@@ -12,8 +12,6 @@ public class DBConnector extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        sqLiteDatabase.execSQL("create table Client( Cid VARCHAR, Cname VARHAR,Caddress VARHAR,CEmail VARHAR,Cbirthday VARHAR,Cgender VARHAR, NumPlateNO VARHAR)");
-        sqLiteDatabase.execSQL("create table DriverAssistanceLocal( Did VARCHAR, DName VARHAR,DAddress VARHAR,DEmail VARHAR,DMobileNumber VARHAR)");
         sqLiteDatabase.execSQL("create table CurrentUser( userId VARCHAR, UserType VARCHAR, loginStatus Varchar)");
     }
     @Override

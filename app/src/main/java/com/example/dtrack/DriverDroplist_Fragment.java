@@ -1,6 +1,7 @@
 package com.example.dtrack;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -29,6 +31,7 @@ import org.json.JSONObject;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -36,31 +39,25 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class DriverDroplist_Fragment extends Fragment {
+
     private RecyclerView mRecyclerView;
     private DropPickAdapter mExampleAdapter;
     private ArrayList<DropPick> mExampleList;
     private RequestQueue mRequestQueue;
-
-
-
     private String noplateNo = "NA-4598"; //get no plate no from the database
-    //private String shift =  DriverActiviy2.currentShift;//
-    private String shift = "morning";//
+    String shift ;
+    AppOps appOps;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_driver_drop_list,container,false);
     }
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-
-       // noplateNo  = ((DriverActivity)getActivity()).VEHICLE_NUMBER;
-        Toast.makeText(getContext(), noplateNo, Toast.LENGTH_SHORT).show();
-
-        Toast.makeText(getContext(),shift , Toast.LENGTH_SHORT).show();
 
         mRecyclerView = view.findViewById(R.id.driverdroplist);
         mRecyclerView.setHasFixedSize(true);
@@ -69,11 +66,18 @@ public class DriverDroplist_Fragment extends Fragment {
         mExampleList = new ArrayList<>();
 
         mRequestQueue = Volley.newRequestQueue(getContext());
-        parseJSON();
+        try {
+            shift = appOps.getShift();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+
+        parseJSON(shift);
 
 
     }
-    private void parseJSON() {
+    private void parseJSON(String shift) {
 
         String url = "https://dtrack.live/generatepickupanddroparray.php?action=Traveling&numberplateid="+noplateNo+"&shift=" +shift;
 

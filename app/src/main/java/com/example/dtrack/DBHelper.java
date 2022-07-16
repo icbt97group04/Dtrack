@@ -27,50 +27,7 @@ public class DBHelper {
     //Insert data to the database
 
 
-    // Insert Driver Details
-    public boolean InsertDriver(Driver driver) {
-        try {
-            ContentValues cv = new ContentValues();
-
-            cv.put("Did", Driver.getDriverId());
-            cv.put("DName", Driver.getDriverName());
-            cv.put("DAddress", Driver.getDriverAddress());
-            cv.put("DEmail", Driver.getDriverEmail());
-            cv.put("DMobileNumber", Driver.getDriverMobileNumber());
-
-            db.insert("DriverAssistanceLocal", null, cv);
-            return true;
-        } catch (Exception ex) {
-            Toast.makeText(con, ex.getMessage(), Toast.LENGTH_LONG).show();
-        }
-        return false;
-
-    }
-
-    // Insert Client details
-
-    public boolean InsertClient(Client client) {
-        try {
-            ContentValues cv = new ContentValues();
-
-            cv.put("Cid", Client.getClientId());
-            cv.put("Cname", Client.getClientName());
-            cv.put("Caddress", Client.getClientAddress());
-            cv.put("CEmail", Client.getClientEmail());
-            cv.put("Cbirthday", Client.getCbirthday());
-            cv.put("Cgender", Client.getCgender());
-            cv.put("NumPlateNO", Client.getNumPlateNO());
-
-            db.insert("DriverAssistanceLocal", null, cv);
-            return true;
-        } catch (Exception ex) {
-            Toast.makeText(con, ex.getMessage(), Toast.LENGTH_LONG).show();
-        }
-        return false;
-
-    }
     public boolean Insertcuser(String cuserid,String UserType,String loginStatus){
-
         //SQLiteDatabase MyDB=this.getWritableDatabase();
         ContentValues contentValues=new ContentValues();
         contentValues.put("userId",cuserid);

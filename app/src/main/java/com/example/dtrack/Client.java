@@ -29,55 +29,29 @@ public class Client {
         return ClientId;
     }
 
-    public static void setClientId(String clientId) {
-        ClientId = clientId;
-    }
-
     public static String getClientName() {
         return ClientName;
-    }
-
-    public static void setClientName(String clientName) {
-        ClientName = clientName;
     }
 
     public static String getClientAddress() {
         return ClientAddress;
     }
 
-    public static void setClientAddress(String clientAddress) {
-        ClientAddress = clientAddress;
-    }
-
     public static String getClientEmail() {
         return ClientEmail;
-    }
-
-    public static void setClientEmail(String clientEmail) {
-        ClientEmail = clientEmail;
     }
 
     public static String getCbirthday() {
         return Cbirthday;
     }
 
-    public static void setCbirthday(String cbirthday) {
-        Cbirthday = cbirthday;
-    }
-
     public static String getCgender() {
         return Cgender;
-    }
-
-    public static void setCgender(String cgender) {
-        Cgender = cgender;
     }
 
     public static String getNumPlateNO() {
         return NumPlateNO;
     }
 
-    public static void setNumPlateNO(String numPlateNO) {
-        NumPlateNO = numPlateNO;
-    }
+
 }

@@ -233,7 +233,7 @@ public class DriverActiviy2 extends AppCompatActivity implements Driver_Current_
 
                         //progressDialog.dismiss();
                         insertdatabase(response);
-                        Toast.makeText(DriverActiviy2.this, response+"getv1", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(DriverActiviy2.this, response+"getv1", Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(DriverActiviy2.this, response, Toast.LENGTH_SHORT).show();
                         // progressDialog.dismiss();
@@ -360,12 +360,15 @@ public class DriverActiviy2 extends AppCompatActivity implements Driver_Current_
                 public void onResponse(String response) {
                     if (response.length() > 0) {
 
+                       // AppOps appOps = new AppOps();
+                         //appOps.setNO_PLATE(response);
+
                         //VEHICLE_NO =response;
 
 
                        // Toast.makeText(DriverActiviy2.this, response+"getv1", Toast.LENGTH_SHORT).show();
                     } else {
-                        Toast.makeText(DriverActiviy2.this, response, Toast.LENGTH_SHORT).show();
+                       // Toast.makeText(DriverActiviy2.this, response, Toast.LENGTH_SHORT).show();
                         // progressDialog.dismiss();
                     }
 
