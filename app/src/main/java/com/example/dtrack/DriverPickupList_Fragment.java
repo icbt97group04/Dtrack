@@ -58,6 +58,8 @@ public class DriverPickupList_Fragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        ((DriverActiviy2) getActivity()).setActionBarTitle("Pickup List");
+
         mRecyclerView = view.findViewById(R.id.driverPickuplist);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));

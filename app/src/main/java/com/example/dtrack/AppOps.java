@@ -31,7 +31,7 @@ public class AppOps {
         LocalTime limit1 = LocalTime.parse("06:00");
         LocalTime limit2 = LocalTime.parse("08:00");
         LocalTime limit3 = LocalTime.parse("11:00");
-        LocalTime limit4 = LocalTime.parse("14:00");
+        LocalTime limit4 = LocalTime.parse("23:00");
         Boolean morning = now.isAfter(limit1) && now.isBefore(limit2);
         Boolean afternoon = now.isAfter(limit3) && now.isBefore(limit4);
         if (morning) {

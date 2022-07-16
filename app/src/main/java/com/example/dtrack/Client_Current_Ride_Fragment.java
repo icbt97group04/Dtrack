@@ -27,6 +27,7 @@ public class Client_Current_Ride_Fragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        ((ClientActivity) getActivity()).setActionBarTitle("Current Ride");
 
         CLIENT_ID = ((ClientActivity)getActivity()).CLIENT_ID;
         //EMAIL = ((ClientActivity)getActivity()).Email;

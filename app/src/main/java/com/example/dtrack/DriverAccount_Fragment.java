@@ -19,11 +19,14 @@ public class DriverAccount_Fragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_driver_account,container,false);
+
     }
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+
+        ((DriverActiviy2) getActivity()).setActionBarTitle("My Account");
         TextView currentride = (TextView) view.findViewById(R.id.tvCurrentRide);
 
         TextView pickuplist = (TextView) view.findViewById(R.id.tvPickuplist);
@@ -84,7 +87,7 @@ public class DriverAccount_Fragment extends Fragment {
                 //clientActivity.IsLoggedIn = false;
 
 
-                startActivity(new Intent( getContext(),login2.class));
+                startActivity(new Intent( getContext(),LoginActivity.class));
             }
         });
 

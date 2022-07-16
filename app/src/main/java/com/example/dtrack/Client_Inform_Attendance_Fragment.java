@@ -32,6 +32,8 @@ public class Client_Inform_Attendance_Fragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_client_infrom_attendance, container, false);
 
+        ((ClientActivity) getActivity()).setActionBarTitle("Inform attendance");
+
         TextView warningtext =  (TextView) v.findViewById(R.id.warningtext);
         ToggleButton morningButton = (ToggleButton) v.findViewById(R.id.tb_on_off_inform_morning);
         ToggleButton afternoonButton = (ToggleButton) v.findViewById(R.id.tb_on_off_inform_afternoon);
@@ -55,6 +57,7 @@ public class Client_Inform_Attendance_Fragment extends Fragment {
                 if (morningButton.isChecked()) {
                     commingTomorrowMorning = true;
                     morningButton.setText("Yes");
+
                 } else {
                     commingTomorrowMorning = false;
                     morningButton.setText("No");

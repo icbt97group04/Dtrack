@@ -30,9 +30,6 @@ import java.util.Map;
 public class ClientEditAccountDetails extends AppCompatActivity {
     private RequestQueue mRequestQueue;
 
-
-
-
     String server_url = "https://dtrack.live/updatepw.php";
     String server_urldetail = "https://dtrack.live/updatedetails.php";
     String cid;

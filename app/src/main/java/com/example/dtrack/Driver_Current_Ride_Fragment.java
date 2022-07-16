@@ -34,8 +34,10 @@ public class Driver_Current_Ride_Fragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_driver_current_ride, container, false);
-
         Switch setlocationUpdates = v.findViewById(R.id.stwithchStartLocationUpdates);
+
+        ((DriverActiviy2) getActivity()).setActionBarTitle("Current Ride");
+
         TextView textviewRide = v.findViewById(R.id.textviewRide);
 
         if(((DriverActiviy2)getActivity()).shift.equals("Noshift")){

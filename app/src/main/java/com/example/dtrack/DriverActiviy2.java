@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -76,6 +77,11 @@ public class DriverActiviy2 extends AppCompatActivity implements Driver_Current_
     AppOps appOps;
     String shift;
 
+
+    public void setActionBarTitle(String title){
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle(title);
+    }
 
     //goolgle api serverices for location
 
@@ -358,52 +364,7 @@ public class DriverActiviy2 extends AppCompatActivity implements Driver_Current_
         }
     };
 
-    public String getNoplateno(String DID) {
 
-        if (DID.isEmpty()) {
-            Toast.makeText(DriverActiviy2.this, "Login Again", Toast.LENGTH_SHORT).show();
-        } else {
-            final ProgressDialog progressDialog = new ProgressDialog(DriverActiviy2.this);
-
-            String uRl = "https://dtrack.live/darcgetno.php";
-            StringRequest request = new StringRequest(Request.Method.POST, uRl, new Response.Listener<String>() {
-                @Override
-                public void onResponse(String response) {
-                    if (response.length() > 0) {
-
-                       // AppOps appOps = new AppOps();
-                         //appOps.setNO_PLATE(response);
-
-                        //VEHICLE_NO =response;
-
-
-                       // Toast.makeText(DriverActiviy2.this, response+"getv1", Toast.LENGTH_SHORT).show();
-                    } else {
-                       // Toast.makeText(DriverActiviy2.this, response, Toast.LENGTH_SHORT).show();
-                        // progressDialog.dismiss();
-                    }
-
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    Toast.makeText(DriverActiviy2.this, error.toString() + "getvehicleError", Toast.LENGTH_SHORT).show();
-                    progressDialog.dismiss();
-                }
-            }) {
-                @Override
-                protected Map<String, String> getParams() throws AuthFailureError {
-                    HashMap<String, String> param = new HashMap<>();
-                    param.put("DID", DID);
-                    return param;
-                }
-            };
-            request.setRetryPolicy(new DefaultRetryPolicy(30000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-            MySingleton.getmInstance(DriverActiviy2.this).addToRequestQueue(request);
-            //Toast.makeText(LoginActivity.this, user+"  "+pw, Toast.LENGTH_SHORT).show();
-        }
-        return DID;
-    }
 
 
     @Override

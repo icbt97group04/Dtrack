@@ -46,6 +46,8 @@ public class ClientPayment_Fragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
 
+        ((ClientActivity) getActivity()).setActionBarTitle("Payments");
+
 
        // CLIENT_ID = getActivity().getIntent().getStringExtra("com.sample.MESSAGE");
         CLIENT_ID = ((ClientActivity)getActivity()).CLIENT_ID;

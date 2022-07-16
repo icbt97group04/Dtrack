@@ -81,9 +81,6 @@ public class DriverMakePayments extends AppCompatActivity {
                 }
             });
         }
-
-
-
     }
     String server_url = "https://dtrack.live/updatecashonhandpayments.php";
 

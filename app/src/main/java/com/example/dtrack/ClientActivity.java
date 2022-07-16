@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
@@ -37,12 +38,20 @@ public class ClientActivity extends AppCompatActivity implements  Client_Inform_
         String shift;
         AppOps appOps;
 
+    public void setActionBarTitle(String title){
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle(title);
+    }
+
+
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_client);
 
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle("");
 
         try {
             shift = appOps.getShift();
@@ -60,7 +69,7 @@ public class ClientActivity extends AppCompatActivity implements  Client_Inform_
         //Toast.makeText(ClientActivity.this, email2 , Toast.LENGTH_SHORT).show();
 
         if (!IsLoggedIn) {
-            startActivity(new Intent(this, login2.class));
+            startActivity(new Intent(this, LoginActivity.class));
 
         }
 

@@ -21,11 +21,15 @@ public class ClientAccount_Fragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_client_account,container,false);
+
+
     }
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         super.onViewCreated(view, savedInstanceState);
+
+        ((ClientActivity) getActivity()).setActionBarTitle("Account");
 
         CLIENT_ID = ((ClientActivity)getActivity()).CLIENT_ID;
 
@@ -106,7 +110,7 @@ public class ClientAccount_Fragment extends Fragment {
                 //clientActivity.IsLoggedIn = false;
 
 
-                startActivity(new Intent( getContext(),login2.class));
+                startActivity(new Intent( getContext(),LoginActivity.class));
             }
         });
 

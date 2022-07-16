@@ -57,7 +57,7 @@ public class DriverDroplist_Fragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        ((DriverActiviy2) getActivity()).setActionBarTitle("Drop List");
 
         mRecyclerView = view.findViewById(R.id.driverdroplist);
         mRecyclerView.setHasFixedSize(true);
