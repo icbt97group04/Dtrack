@@ -49,6 +49,7 @@
         android:paddingTop="20sp"
         android:paddingBottom="10sp"
         android:text="Notifications"
+        android:background="@drawable/label_bg1"
         android:textColor="@color/black"
         android:textSize="20sp"
         android:textStyle="bold"
