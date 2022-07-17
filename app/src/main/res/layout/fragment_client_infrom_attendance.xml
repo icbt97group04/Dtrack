@@ -8,13 +8,15 @@
 
     <TextView
         android:id="@+id/warningtext"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="341dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="16dp"
+        android:text=""
+        android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="20sp"
-
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -23,6 +25,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
+        android:layout_marginTop="68dp"
         app:cardBackgroundColor="@color/white"
         app:cardCornerRadius="20dp"
         app:cardElevation="10dp"
@@ -30,23 +33,23 @@
         app:cardPreventCornerOverlap="true"
         app:cardUseCompatPadding="true"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.157"
+        app:layout_constraintHorizontal_bias="0.526"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/warningtext"
         tools:ignore="MissingConstraints">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="200dp">
+            android:layout_height="128dp">
 
             <TextView
                 android:id="@+id/textView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="48dp"
+                android:layout_marginTop="4dp"
                 android:text="Morning shift"
                 android:textColor="@color/black"
-                android:textSize="20sp"
+                android:textSize="25sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -54,21 +57,23 @@
 
             <ToggleButton
                 android:id="@+id/tb_on_off_inform_morning"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="184dp"
+                android:layout_height="24dp"
                 android:layout_marginTop="20sp"
-                android:text="ToggleButton"
-                android:textSize="24sp"
                 android:background="@drawable/toggle_button_shape"
                 android:scaleX="1.5"
                 android:scaleY="1.5"
+                android:text="ToggleButton"
+                android:textOn="Coming"
+                android:textOff="Not Coming"
+                android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.498"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView3"
-                app:layout_constraintVertical_bias="0.122" />
-
+                app:layout_constraintVertical_bias="0.122"
+                tools:ignore="TouchTargetSizeCheck" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -85,19 +90,21 @@
         app:cardCornerRadius="20dp"
         app:cardElevation="10dp"
         app:cardMaxElevation="12dp"
+
         app:cardPreventCornerOverlap="true"
         app:cardUseCompatPadding="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.842"
+        app:layout_constraintHorizontal_bias="0.473"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cardView"
+        app:layout_constraintVertical_bias="0.158"
         tools:ignore="MissingConstraints">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cvafternoon"
             android:layout_width="match_parent"
-            android:layout_height="200dp">
+            android:layout_height="128dp">
 
             <TextView
                 android:id="@+id/textView6"
@@ -105,29 +112,31 @@
                 android:layout_height="wrap_content"
                 android:text="Afternoon Shift"
                 android:textColor="@color/black"
-                android:textSize="20sp"
+                android:textSize="25sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.185" />
+                app:layout_constraintVertical_bias="0.0" />
 
             <ToggleButton
                 android:id="@+id/tb_on_off_inform_afternoon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="184dp"
+                android:layout_height="24dp"
                 android:layout_marginTop="20sp"
-                android:text="Yes"
                 android:background="@drawable/toggle_button_shape"
-                android:textSize="24sp"
                 android:scaleX="1.5"
                 android:scaleY="1.5"
+                android:textSize="12sp"
+                android:textOn="Coming"
+                android:textOff="Not Coming"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView6"
-                app:layout_constraintVertical_bias="0.535" />
+                app:layout_constraintVertical_bias="0.152"
+                tools:ignore="TouchTargetSizeCheck" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

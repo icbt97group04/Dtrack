@@ -1,10 +1,15 @@
 package com.example.dtrack;
 
+import android.animation.ArgbEvaluator;
+import android.animation.ObjectAnimator;
 import android.app.ProgressDialog;
+import android.content.ClipData;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
@@ -14,6 +19,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
@@ -32,24 +38,24 @@ public class LoginActivity extends AppCompatActivity {
     private DBHelper Db;
     AlertDialog.Builder builder;
     public static String Email;
+    public TextView tv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
+
         Spinner spinner = findViewById(R.id.spinner);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.userlevel, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,R.array.userlevel, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
-        // spinner.setOnItemSelectedListener(this);
 
         login = findViewById(R.id.btnLogin);
         username = findViewById(R.id.username);
         password = findViewById(R.id.password);
+        tv=findViewById(R.id.textView);
         builder = new AlertDialog.Builder(LoginActivity.this);
         Db = new DBHelper(this);
         Db.OpenDB();
@@ -66,6 +72,7 @@ public class LoginActivity extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 String text = spinner.getSelectedItem().toString();
                 String user = username.getText().toString();
                 Email = user;
@@ -86,6 +93,7 @@ public class LoginActivity extends AppCompatActivity {
         //checking empty textboxes
         if (user.isEmpty() || pw.isEmpty()) {
             Toast.makeText(LoginActivity.this, "Enter Details", Toast.LENGTH_SHORT).show();
+            erroreffect();
         } else {
             final ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this);
             progressDialog.setTitle("login your account");
@@ -100,16 +108,10 @@ public class LoginActivity extends AppCompatActivity {
                     String res = response;
 
                     if (response.length() > 0) {
-
-                        /*Intent i = new Intent(LoginActivity.this, ClientActivity.class);
-                        i.putExtra("cid", res);
-                        startActivity(i);
-                        Db.Insertcuser(response,"Client","Logged");*/
                         paymentcheck(res, user);
-                        //Toast.makeText(LoginActivity.this, "yes", Toast.LENGTH_SHORT).show();
                         progressDialog.dismiss();
-
                     } else {
+                        erroreffect();
                         Toast.makeText(LoginActivity.this, "Wrong Details,Try Again ", Toast.LENGTH_SHORT).show();
                         progressDialog.dismiss();
                     }
@@ -128,19 +130,18 @@ public class LoginActivity extends AppCompatActivity {
                     param.put("email", user);
                     param.put("cpassword", pw);
                     return param;
-//585
                 }
             };
 
             request.setRetryPolicy(new DefaultRetryPolicy(30000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
             MySingleton.getmInstance(LoginActivity.this).addToRequestQueue(request);
-            //Toast.makeText(LoginActivity.this, user + "  " + pw, Toast.LENGTH_SHORT).show();
         }
     }
 
     private void logind(String user, String pw) {
         if (user.isEmpty() || pw.isEmpty()) {
             Toast.makeText(LoginActivity.this, "Enter Details", Toast.LENGTH_SHORT).show();
+            erroreffect();
         } else {
             final ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this);
             progressDialog.setTitle("login your account");
@@ -155,12 +156,13 @@ public class LoginActivity extends AppCompatActivity {
                     String res = response;
 
                     if (response.length() > 0) {
-                        //Toast.makeText(LoginActivity.this, response, Toast.LENGTH_SHORT).show();
                         getvehiclenumber(response);
+
 
                     } else {
                         Toast.makeText(LoginActivity.this, "Wrong Password", Toast.LENGTH_SHORT).show();
                         progressDialog.dismiss();
+
                     }
                 }//59
             }, new Response.ErrorListener() {
@@ -182,7 +184,7 @@ public class LoginActivity extends AppCompatActivity {
             };
             request.setRetryPolicy(new DefaultRetryPolicy(30000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
             MySingleton.getmInstance(LoginActivity.this).addToRequestQueue(request);
-            //Toast.makeText(LoginActivity.this, user+"  "+pw, Toast.LENGTH_SHORT).show();
+
 
         }
     }
@@ -192,7 +194,7 @@ public class LoginActivity extends AppCompatActivity {
         StringRequest request = new StringRequest(Request.Method.POST, uRl, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                //TToast.makeText(LoginActivity.this, response, Toast.LENGTH_SHORT).show();
+
 
                 if (response.length() == 1) {
                     //Toast.makeText(LoginActivity.this, "Blocked", Toast.LENGTH_SHORT).show();
@@ -202,20 +204,21 @@ public class LoginActivity extends AppCompatActivity {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             dialog.cancel();
+                            correcteffect();
                             Intent i = new Intent(LoginActivity.this, ClientActivity.class);
                             i.putExtra("cid", cid);
                             i.putExtra("email",user);
-                            //Toast.makeText(LoginActivity.this, response, Toast.LENGTH_SHORT).show();
                             startActivity(i);
+
                             Db.Insertcuser(cid, "Client", "Logged");
                         }
                     });
                     AlertDialog alertDialog = builder.create();
                     alertDialog.show();
-                    /* */
+
 
                 } else if (response.length() == 3) {
-                    //Toast.makeText(LoginActivity.this, "Blocked", Toast.LENGTH_SHORT).show();
+                    erroreffect();
                     builder.setTitle("Blocked");
                     builder.setMessage("Please Pay your fees :");
                     builder.setPositiveButton("PAY", new DialogInterface.OnClickListener() {
@@ -230,6 +233,7 @@ public class LoginActivity extends AppCompatActivity {
                     alertDialog.show();
 
                 } else if (response.length() == 4) {
+                    correcteffect();
                     Intent i = new Intent(LoginActivity.this, ClientActivity.class);
                     i.putExtra("cid", cid);
                     startActivity(i);
@@ -262,27 +266,23 @@ public class LoginActivity extends AppCompatActivity {
             Toast.makeText(LoginActivity.this, "Login Again", Toast.LENGTH_SHORT).show();
         } else {
             final ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this);
-           /* progressDialog.setTitle("Loading Data");
-            progressDialog.setCancelable(false);
-            progressDialog.setCanceledOnTouchOutside(false);
-            progressDialog.setIndeterminate(false);
-            progressDialog.show();*/
             String uRl = "https://dtrack.live/darcgetno.php";
             StringRequest request = new StringRequest(Request.Method.POST, uRl, new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
                     if (response.length() > 0) {
-
+                        correcteffect();
                         Intent i = new Intent(LoginActivity.this, DriverActiviy2.class);
                         i.putExtra("did", DID);
                         i.putExtra("noplateno", response);
                         startActivity(i);
                         Db.Insertcuser(response, "Driver", "Logged");
                         progressDialog.dismiss();
+                        finish();
 
                     } else {
                         Toast.makeText(LoginActivity.this, response, Toast.LENGTH_SHORT).show();
-                        // progressDialog.dismiss();
+                        erroreffect();
                     }
 
                 }
@@ -311,6 +311,21 @@ public class LoginActivity extends AppCompatActivity {
     public void onBackPressed() {
         finish();
     }
+    public void erroreffect(){
+        ObjectAnimator colorAnim = ObjectAnimator.ofInt(tv, "textColor",
+                Color.RED, Color.BLACK);
+        colorAnim.setEvaluator(new ArgbEvaluator());
+        colorAnim.start();
+    }
+    public void correcteffect(){
+        ObjectAnimator colorAnim = ObjectAnimator.ofInt(tv, "textColor",
+                Color.GREEN, Color.BLACK);
+        colorAnim.setEvaluator(new ArgbEvaluator());
+        colorAnim.start();
+    }
 
 
 }
+
+
+

@@ -88,6 +88,7 @@ public class ClientActivity extends AppCompatActivity implements  Client_Inform_
             switch (item.getItemId()) {
                 case R.id.nav_Current_Ride:
                     selectedFragment = new Client_Current_Ride_Fragment();
+
                     break;
                 case R.id.nav_inform:
                     selectedFragment = new Client_Inform_Attendance_Fragment();
@@ -100,7 +101,8 @@ public class ClientActivity extends AppCompatActivity implements  Client_Inform_
                     break;
 
             }
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment).commit();
+            //getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment).commit();
+            getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.fade_in,R.anim.fade_out).replace(R.id.fragment_container, selectedFragment).commit();
             return true;
         }
     };

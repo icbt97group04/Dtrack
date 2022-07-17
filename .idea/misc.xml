@@ -3,60 +3,56 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/ACER/AndroidStudioProjects/Dtrack/app/src/main/res/layout/activity_login.xml" value="0.4" />
-        <entry key="..\:/Users/MSI/AndroidStudioProjects/DTrack/app/src/main/res/drawable/background.xml" value="0.361" />
-        <entry key="..\:/Users/MSI/AndroidStudioProjects/DTrack/app/src/main/res/drawable/ic__user_.xml" value="0.196" />
-        <entry key="..\:/Users/MSI/AndroidStudioProjects/DTrack/app/src/main/res/drawable/ic_launcher_background.xml" value="0.3575" />
-        <entry key="..\:/Users/MSI/AndroidStudioProjects/DTrack/app/src/main/res/drawable/main_button_shape.xml" value="0.361" />
-        <entry key="..\:/Users/MSI/AndroidStudioProjects/DTrack/app/src/main/res/drawable/toggle_button_shape.xml" value="0.3665" />
+        <entry key="..\:/Users/ACER/AndroidStudioProjects/Dtrack/app/src/main/res/drawable/label_bg1.xml" value="0.18" />
+        <entry key="..\:/Users/ACER/AndroidStudioProjects/Dtrack/app/src/main/res/drawable/toggle_button_shape.xml" value="0.21" />
+        <entry key="..\:/Users/ACER/AndroidStudioProjects/Dtrack/app/src/main/res/layout/activity_client_change_details.xml" value="0.11775362318840579" />
+        <entry key="..\:/Users/ACER/AndroidStudioProjects/Dtrack/app/src/main/res/layout/activity_client_edit_account_details.xml" value="0.11775362318840579" />
+        <entry key="..\:/Users/ACER/AndroidStudioProjects/Dtrack/app/src/main/res/layout/activity_client_make_payment_web_viewer.xml" value="0.11775362318840579" />
+        <entry key="..\:/Users/ACER/AndroidStudioProjects/Dtrack/app/src/main/res/layout/activity_contact_service_provider.xml" value="0.264" />
+        <entry key="..\:/Users/ACER/AndroidStudioProjects/Dtrack/app/src/main/res/layout/activity_contatc_driver.xml" value="0.264" />
+        <entry key="..\:/Users/ACER/AndroidStudioProjects/Dtrack/app/src/main/res/layout/activity_display_notification.xml" value="0.264" />
+        <entry key="..\:/Users/ACER/AndroidStudioProjects/Dtrack/app/src/main/res/layout/activity_driver.xml" value="0.264" />
+        <entry key="..\:/Users/ACER/AndroidStudioProjects/Dtrack/app/src/main/res/layout/activity_driver_activiy2.xml" value="0.11775362318840579" />
+        <entry key="..\:/Users/ACER/AndroidStudioProjects/Dtrack/app/src/main/res/layout/activity_driver_make_payments.xml" value="0.11775362318840579" />
+        <entry key="..\:/Users/ACER/AndroidStudioProjects/Dtrack/app/src/main/res/layout/activity_how_to_register_webview.xml" value="0.10009057971014493" />
+        <entry key="..\:/Users/ACER/AndroidStudioProjects/Dtrack/app/src/main/res/layout/activity_login.xml" value="0.2" />
+        <entry key="..\:/Users/ACER/AndroidStudioProjects/Dtrack/app/src/main/res/layout/activity_main.xml" value="0.19972826086956522" />
+        <entry key="..\:/Users/ACER/AndroidStudioProjects/Dtrack/app/src/main/res/layout/activity_payment_details.xml" value="0.1157548125633232" />
+        <entry key="..\:/Users/ACER/AndroidStudioProjects/Dtrack/app/src/main/res/layout/activity_signin.xml" value="0.1" />
+        <entry key="..\:/Users/ACER/AndroidStudioProjects/Dtrack/app/src/main/res/layout/activity_view_notifications.xml" value="0.11775362318840579" />
+        <entry key="..\:/Users/ACER/AndroidStudioProjects/Dtrack/app/src/main/res/layout/children_pick_drop_item.xml" value="0.1" />
+        <entry key="..\:/Users/ACER/AndroidStudioProjects/Dtrack/app/src/main/res/layout/fragment_client_account.xml" value="0.2" />
+        <entry key="..\:/Users/ACER/AndroidStudioProjects/Dtrack/app/src/main/res/layout/fragment_client_current_ride.xml" value="0.1" />
+        <entry key="..\:/Users/ACER/AndroidStudioProjects/Dtrack/app/src/main/res/layout/fragment_client_infrom_attendance.xml" value="0.264" />
+        <entry key="..\:/Users/ACER/AndroidStudioProjects/Dtrack/app/src/main/res/layout/fragment_client_payment.xml" value="0.11775362318840579" />
+        <entry key="..\:/Users/ACER/AndroidStudioProjects/Dtrack/app/src/main/res/layout/fragment_driver_account.xml" value="0.11775362318840579" />
+        <entry key="..\:/Users/ACER/AndroidStudioProjects/Dtrack/app/src/main/res/layout/fragment_driver_current_ride.xml" value="0.11775362318840579" />
+        <entry key="..\:/Users/ACER/AndroidStudioProjects/Dtrack/app/src/main/res/layout/fragment_driver_drop_list.xml" value="0.11775362318840579" />
+        <entry key="..\:/Users/ACER/AndroidStudioProjects/Dtrack/app/src/main/res/layout/fragment_driver_pickup_list.xml" value="0.11775362318840579" />
+        <entry key="..\:/Users/ACER/AndroidStudioProjects/Dtrack/app/src/main/res/layout/payment_item.xml" value="0.4" />
         <entry key="..\:/Users/MSI/AndroidStudioProjects/DTrack/app/src/main/res/layout/activity_client.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/MSI/AndroidStudioProjects/DTrack/app/src/main/res/layout/activity_client_change_details.xml" value="0.33" />
-        <entry key="..\:/Users/MSI/AndroidStudioProjects/DTrack/app/src/main/res/layout/activity_client_edit_account_details.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/MSI/AndroidStudioProjects/DTrack/app/src/main/res/layout/activity_client_make_payment_web_viewer.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/MSI/AndroidStudioProjects/DTrack/app/src/main/res/layout/activity_client_update_info.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/MSI/AndroidStudioProjects/DTrack/app/src/main/res/layout/activity_contact_client.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/MSI/AndroidStudioProjects/DTrack/app/src/main/res/layout/activity_contact_service_provider.xml" value="0.3625" />
-        <entry key="..\:/Users/MSI/AndroidStudioProjects/DTrack/app/src/main/res/layout/activity_contatc_driver.xml" value="0.3625" />
-        <entry key="..\:/Users/MSI/AndroidStudioProjects/DTrack/app/src/main/res/layout/activity_display_notification.xml" value="0.3625" />
         <entry key="..\:/Users/MSI/AndroidStudioProjects/DTrack/app/src/main/res/layout/activity_driver.xml" value="0.17395833333333333" />
-        <entry key="..\:/Users/MSI/AndroidStudioProjects/DTrack/app/src/main/res/layout/activity_driver_activiy2.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/MSI/AndroidStudioProjects/DTrack/app/src/main/res/layout/activity_driver_make_payments.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/MSI/AndroidStudioProjects/DTrack/app/src/main/res/layout/activity_driver_view_payments.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/MSI/AndroidStudioProjects/DTrack/app/src/main/res/layout/activity_faq_web_viewer.xml" value="0.18541666666666667" />
         <entry key="..\:/Users/MSI/AndroidStudioProjects/DTrack/app/src/main/res/layout/activity_how_to_register_webview.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/MSI/AndroidStudioProjects/DTrack/app/src/main/res/layout/activity_loctrack.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/MSI/AndroidStudioProjects/DTrack/app/src/main/res/layout/activity_login.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/MSI/AndroidStudioProjects/DTrack/app/src/main/res/layout/activity_login2.xml" value="0.3625" />
         <entry key="..\:/Users/MSI/AndroidStudioProjects/DTrack/app/src/main/res/layout/activity_main.xml" value="0.33" />
-        <entry key="..\:/Users/MSI/AndroidStudioProjects/DTrack/app/src/main/res/layout/activity_pay_without_login.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/MSI/AndroidStudioProjects/DTrack/app/src/main/res/layout/activity_payment_details.xml" value="0.33" />
-        <entry key="..\:/Users/MSI/AndroidStudioProjects/DTrack/app/src/main/res/layout/activity_view_children.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/MSI/AndroidStudioProjects/DTrack/app/src/main/res/layout/activity_view_notifications.xml" value="0.3625" />
-        <entry key="..\:/Users/MSI/AndroidStudioProjects/DTrack/app/src/main/res/layout/children_pick_drop_item.xml" value="0.365625" />
-        <entry key="..\:/Users/MSI/AndroidStudioProjects/DTrack/app/src/main/res/layout/fragment_client_account.xml" value="0.33" />
+        <entry key="..\:/Users/MSI/AndroidStudioProjects/DTrack/app/src/main/res/layout/fragment_client_account.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/MSI/AndroidStudioProjects/DTrack/app/src/main/res/layout/fragment_client_current_ride.xml" value="0.365625" />
         <entry key="..\:/Users/MSI/AndroidStudioProjects/DTrack/app/src/main/res/layout/fragment_client_infrom_attendance.xml" value="0.365625" />
         <entry key="..\:/Users/MSI/AndroidStudioProjects/DTrack/app/src/main/res/layout/fragment_client_payment.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/MSI/AndroidStudioProjects/DTrack/app/src/main/res/layout/fragment_customer_account.xml" value="0.365625" />
-        <entry key="..\:/Users/MSI/AndroidStudioProjects/DTrack/app/src/main/res/layout/fragment_driver_account.xml" value="0.33" />
+        <entry key="..\:/Users/MSI/AndroidStudioProjects/DTrack/app/src/main/res/layout/fragment_driver_account.xml" value="0.365625" />
         <entry key="..\:/Users/MSI/AndroidStudioProjects/DTrack/app/src/main/res/layout/fragment_driver_attendance.xml" value="0.365625" />
-        <entry key="..\:/Users/MSI/AndroidStudioProjects/DTrack/app/src/main/res/layout/fragment_driver_current_ride.xml" value="0.33" />
-        <entry key="..\:/Users/MSI/AndroidStudioProjects/DTrack/app/src/main/res/layout/fragment_driver_drop_list.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/MSI/AndroidStudioProjects/DTrack/app/src/main/res/layout/fragment_driver_current_ride.xml" value="0.365625" />
         <entry key="..\:/Users/MSI/AndroidStudioProjects/DTrack/app/src/main/res/layout/fragment_driver_payment.xml" value="0.365625" />
-        <entry key="..\:/Users/MSI/AndroidStudioProjects/DTrack/app/src/main/res/layout/fragment_driver_pickup_list.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/MSI/AndroidStudioProjects/DTrack/app/src/main/res/layout/notification_item.xml" value="0.3614583333333333" />
-        <entry key="..\:/Users/MSI/AndroidStudioProjects/DTrack/app/src/main/res/layout/payment_item.xml" value="0.5" />
         <entry key="..\:/Users/MSI/AndroidStudioProjects/DTrack/app/src/main/res/menu/client_bottom_navigation_menu.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/MSI/AndroidStudioProjects/DTrack/app/src/main/res/menu/client_botton_navigation_menu.xml" value="0.33" />
-        <entry key="..\:/Users/MSI/AndroidStudioProjects/DTrack/app/src/main/res/menu/customertop_menu.xml" value="0.365625" />
         <entry key="..\:/Users/MSI/AndroidStudioProjects/DTrack/app/src/main/res/menu/driver_bottom_navigation_menu.xml" value="0.365625" />
-        <entry key="..\:/Users/MSI/AndroidStudioProjects/DTrack/app/src/main/res/menu/drivertop_menu.xml" value="0.365625" />
         <entry key="..\:/Users/MSI/AndroidStudioProjects/DTrack/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1855" />
-        <entry key="..\:/Users/MSI/AndroidStudioProjects/DTrack/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.196" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

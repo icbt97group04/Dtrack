@@ -1,7 +1,10 @@
 package com.example.dtrack;
 
+import android.animation.ArgbEvaluator;
+import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -57,10 +60,12 @@ public class Client_Inform_Attendance_Fragment extends Fragment {
                 if (morningButton.isChecked()) {
                     commingTomorrowMorning = true;
                     morningButton.setText("Yes");
+                    correcteffect(morningButton);
 
                 } else {
                     commingTomorrowMorning = false;
                     morningButton.setText("No");
+                    noeteffect(morningButton);
                 }
                 update();
             }
@@ -70,9 +75,11 @@ public class Client_Inform_Attendance_Fragment extends Fragment {
                 if (afternoonButton.isChecked()) {
                     commingTomorrowAfternoon = true;
                     afternoonButton.setText("Yes");
+                    correcteffect(afternoonButton);
                 } else {
                     commingTomorrowAfternoon = false;
                     afternoonButton.setText("Yes");
+                    noeteffect(afternoonButton);
                 }
                 update();
             }
@@ -111,6 +118,18 @@ public class Client_Inform_Attendance_Fragment extends Fragment {
         String CID = intent.getStringExtra("cid");
 
 
+    }
+    public void correcteffect(ToggleButton button){
+        ObjectAnimator colorAnim = ObjectAnimator.ofInt(button, "textColor",
+                Color.GREEN);
+        colorAnim.setEvaluator(new ArgbEvaluator());
+        colorAnim.start();
+    }
+    public void noeteffect(ToggleButton button){
+        ObjectAnimator colorAnim = ObjectAnimator.ofInt(button, "textColor",
+                Color.BLACK);
+        colorAnim.setEvaluator(new ArgbEvaluator());
+        colorAnim.start();
     }
 
 

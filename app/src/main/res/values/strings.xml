@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">DTrack</string>
     <string-array name="userlevel">
-        <item>Driver</item>
-        <item>Parents</item>
+        <item ><b>Driver</b></item>
+        <item ><b>Parents</b></item>
     </string-array>
 </resources>

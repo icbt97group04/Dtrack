@@ -134,53 +134,7 @@ public class DriverActiviy2 extends AppCompatActivity implements Driver_Current_
 
     }
 
-    /*
-    public void setcurrentShift(){
 
-
-        SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
-        Date MorningStartTime = null;
-        try {
-            MorningStartTime = dateFormat.parse("06:00");
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        Date MorningEndTime = null;
-        try {
-            MorningEndTime = dateFormat.parse("08:00");
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        Date afternoonStartTime = null;
-        try {
-            afternoonStartTime = dateFormat.parse("11:00");
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        Date afternoonEndTime = null;
-        try {
-            afternoonEndTime = dateFormat.parse("2:30");
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        Date CurrentTime = null;
-        try {
-            CurrentTime = dateFormat.parse(dateFormat.format(new Date()));
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        if (CurrentTime.after(MorningStartTime) && CurrentTime.before(MorningEndTime)) {
-            currentShift = "morning";
-        }
-        if (CurrentTime.after(afternoonStartTime) && CurrentTime.before(afternoonEndTime)) {
-            currentShift = "afternoon";
-        }
-
-    }
-
-*/
     private void updategps() {
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(DriverActiviy2.this);
 
@@ -224,9 +178,6 @@ public class DriverActiviy2 extends AppCompatActivity implements Driver_Current_
             DID = intent.getStringExtra("did");
             getvehiclenumber(DID);
             updategps();
-            //insertdatabase();
-            //Toast.makeText(DriverActivity.this,"Tracking",Toast.LENGTH_SHORT).show();
-            //Toast.makeText(DriverActivity.this, number+"getv", Toast.LENGTH_SHORT).show();
             mhandler.postDelayed(this, 3000);
         }
     };
@@ -236,24 +187,14 @@ public class DriverActiviy2 extends AppCompatActivity implements Driver_Current_
             Toast.makeText(DriverActiviy2.this, "Login Again", Toast.LENGTH_SHORT).show();
         } else {
             final ProgressDialog progressDialog = new ProgressDialog(DriverActiviy2.this);
-           /* progressDialog.setTitle("Loading Data");
-            progressDialog.setCancelable(false);
-            progressDialog.setCanceledOnTouchOutside(false);
-            progressDialog.setIndeterminate(false);
-            progressDialog.show();*/
             String uRl = "https://dtrack.live/darcgetno.php";
             StringRequest request = new StringRequest(Request.Method.POST, uRl, new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
                     if (response.length() > 0) {
-
-
-                        //progressDialog.dismiss();
                         insertdatabase(response);
-                        //Toast.makeText(DriverActiviy2.this, response+"getv1", Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(DriverActiviy2.this, response, Toast.LENGTH_SHORT).show();
-                        // progressDialog.dismiss();
                     }
 
                 }
@@ -273,7 +214,6 @@ public class DriverActiviy2 extends AppCompatActivity implements Driver_Current_
             };
             request.setRetryPolicy(new DefaultRetryPolicy(30000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
             MySingleton.getmInstance(DriverActiviy2.this).addToRequestQueue(request);
-            //Toast.makeText(LoginActivity.this, user+"  "+pw, Toast.LENGTH_SHORT).show();
         }
         return DID;
     }
@@ -289,9 +229,6 @@ public class DriverActiviy2 extends AppCompatActivity implements Driver_Current_
                     String lat = (String.valueOf(location.getLatitude()));
                     String lon = (String.valueOf(location.getLongitude()));
                     connection(lat, lon, responsez);
-                    //Toast.makeText(DriverActivity.this, responsez+"getvum", Toast.LENGTH_SHORT).show();
-
-
                 }
             });
         } else {
@@ -317,8 +254,6 @@ public class DriverActiviy2 extends AppCompatActivity implements Driver_Current_
                     PrintWriter printWriter = new PrintWriter(writer);
                     error.printStackTrace(printWriter);
                     printWriter.flush();
-                    // String stackTrace = writer.toString();
-                    // error.printStackTrace( );
                 }
             }) {
                 @Override
@@ -332,9 +267,6 @@ public class DriverActiviy2 extends AppCompatActivity implements Driver_Current_
                 }
             };
             Mysingnalton.getInstance(DriverActiviy2.this).addTorequestque(stringRequest);
-            //Toast.makeText(DriverActivity.this, responsez+"getvum", Toast.LENGTH_SHORT).show();
-
-
         }
     }
 
@@ -363,7 +295,6 @@ public class DriverActiviy2 extends AppCompatActivity implements Driver_Current_
             return true;
         }
     };
-
 
 
 
