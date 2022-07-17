@@ -21,11 +21,11 @@
         <entry key="..\:/Users/ACER/AndroidStudioProjects/Dtrack/app/src/main/res/layout/activity_signin.xml" value="0.1" />
         <entry key="..\:/Users/ACER/AndroidStudioProjects/Dtrack/app/src/main/res/layout/activity_view_notifications.xml" value="0.11775362318840579" />
         <entry key="..\:/Users/ACER/AndroidStudioProjects/Dtrack/app/src/main/res/layout/children_pick_drop_item.xml" value="0.1" />
-        <entry key="..\:/Users/ACER/AndroidStudioProjects/Dtrack/app/src/main/res/layout/fragment_client_account.xml" value="0.2" />
+        <entry key="..\:/Users/ACER/AndroidStudioProjects/Dtrack/app/src/main/res/layout/fragment_client_account.xml" value="0.14218009478672985" />
         <entry key="..\:/Users/ACER/AndroidStudioProjects/Dtrack/app/src/main/res/layout/fragment_client_current_ride.xml" value="0.1" />
         <entry key="..\:/Users/ACER/AndroidStudioProjects/Dtrack/app/src/main/res/layout/fragment_client_infrom_attendance.xml" value="0.264" />
         <entry key="..\:/Users/ACER/AndroidStudioProjects/Dtrack/app/src/main/res/layout/fragment_client_payment.xml" value="0.11775362318840579" />
-        <entry key="..\:/Users/ACER/AndroidStudioProjects/Dtrack/app/src/main/res/layout/fragment_driver_account.xml" value="0.11775362318840579" />
+        <entry key="..\:/Users/ACER/AndroidStudioProjects/Dtrack/app/src/main/res/layout/fragment_driver_account.xml" value="0.264" />
         <entry key="..\:/Users/ACER/AndroidStudioProjects/Dtrack/app/src/main/res/layout/fragment_driver_current_ride.xml" value="0.11775362318840579" />
         <entry key="..\:/Users/ACER/AndroidStudioProjects/Dtrack/app/src/main/res/layout/fragment_driver_drop_list.xml" value="0.11775362318840579" />
         <entry key="..\:/Users/ACER/AndroidStudioProjects/Dtrack/app/src/main/res/layout/fragment_driver_pickup_list.xml" value="0.11775362318840579" />
