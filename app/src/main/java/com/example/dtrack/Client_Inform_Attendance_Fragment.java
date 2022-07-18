@@ -108,6 +108,7 @@ public class Client_Inform_Attendance_Fragment extends Fragment {
         listner.onClientUpdatedAttendance(commingTomorrowMorning, commingTomorrowAfternoon);
     }
 
+
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -133,4 +134,6 @@ public class Client_Inform_Attendance_Fragment extends Fragment {
     }
 
 
-}
+    }
+
+

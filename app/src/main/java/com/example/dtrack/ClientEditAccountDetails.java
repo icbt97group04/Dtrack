@@ -42,7 +42,6 @@ public class ClientEditAccountDetails extends AppCompatActivity {
 
         Intent i = getIntent();
         cid = i.getStringExtra("cid");
-        //Toast.makeText(ClientEditAccountDetails.this, cid, Toast.LENGTH_SHORT).show();
 
         TextView mobileno = findViewById(R.id.editTextTextMobileNo);
         TextView address = findViewById(R.id.editTextTextAddress);

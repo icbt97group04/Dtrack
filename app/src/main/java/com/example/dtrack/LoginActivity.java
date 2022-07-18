@@ -71,7 +71,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-
+//login button
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -92,25 +92,31 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+    //Parent login function
     private void clientlogin(String user, String pw) {
         //checking empty textboxes
         if (user.isEmpty() || pw.isEmpty()) {
             Toast.makeText(LoginActivity.this, "Enter Details", Toast.LENGTH_SHORT).show();
             erroreffect();
         } else {
+            //progress dialog
             final ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this);
             progressDialog.setTitle("login your account");
             progressDialog.setCancelable(false);
             progressDialog.setCanceledOnTouchOutside(false);
             progressDialog.setIndeterminate(false);
             progressDialog.show();
+
+            //database connection
             String uRl = "https://dtrack.live/darclogin5.php";
             StringRequest request = new StringRequest(Request.Method.POST, uRl, new Response.Listener<String>() {
                 @Override
+                //php response
                 public void onResponse(String response) {
                     String res = response;
 
                     if (response.length() > 0) {
+                        //sending data to paymentcheck
                         paymentcheck(res, user);
                         progressDialog.dismiss();
                     } else {
@@ -120,6 +126,7 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 }
             }, new Response.ErrorListener() {
+                //php error response
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     Toast.makeText(LoginActivity.this, error.toString(), Toast.LENGTH_SHORT).show();
@@ -127,6 +134,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 }
             }) {
+                //values sending to php
                 @Override
                 protected Map<String, String> getParams() throws AuthFailureError {
                     HashMap<String, String> param = new HashMap<>();
@@ -141,9 +149,11 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
+    //Driver login
     private void logind(String user, String pw) {
         if (user.isEmpty() || pw.isEmpty()) {
             Toast.makeText(LoginActivity.this, "Enter Details", Toast.LENGTH_SHORT).show();
+            //error effect
             erroreffect();
         } else {
             final ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this);
@@ -159,6 +169,7 @@ public class LoginActivity extends AppCompatActivity {
                     String res = response;
 
                     if (response.length() > 0) {
+                        //sending the Driver id to getvehiclenumber
                         getvehiclenumber(response);
 
 
@@ -191,16 +202,16 @@ public class LoginActivity extends AppCompatActivity {
 
         }
     }
-
+//checking payments status
     private void paymentcheck(String cid, String user) {
         String uRl = "https://dtrack.live/darcpaymentcheck.php";
         StringRequest request = new StringRequest(Request.Method.POST, uRl, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
 
-
+//if php sending 1 length response it means a warning
                 if (response.length() == 1) {
-                    //Toast.makeText(LoginActivity.this, "Blocked", Toast.LENGTH_SHORT).show();
+                    //error msg
                     builder.setTitle("Warning");
                     builder.setMessage("Please Pay your fees :");
                     builder.setPositiveButton("PAY", new DialogInterface.OnClickListener() {
@@ -208,6 +219,7 @@ public class LoginActivity extends AppCompatActivity {
                         public void onClick(DialogInterface dialog, int which) {
                             dialog.cancel();
                             correcteffect();
+                            //client login
                             Intent i = new Intent(LoginActivity.this, ClientActivity.class);
                             i.putExtra("cid", cid);
                             i.putExtra("email",user);
@@ -219,7 +231,7 @@ public class LoginActivity extends AppCompatActivity {
                     AlertDialog alertDialog = builder.create();
                     alertDialog.show();
 
-
+//if php sending 3 length response it means a block
                 } else if (response.length() == 3) {
                     erroreffect();
                     builder.setTitle("Blocked");
@@ -227,6 +239,7 @@ public class LoginActivity extends AppCompatActivity {
                     builder.setPositiveButton("PAY", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
+                            //sending to settle payments
                             Intent i = new Intent(LoginActivity.this, PayWithoutLogin.class);
                             i.putExtra("cid", cid);
                             startActivity(i);
@@ -234,9 +247,10 @@ public class LoginActivity extends AppCompatActivity {
                     });
                     AlertDialog alertDialog = builder.create();
                     alertDialog.show();
-
+//if php sending 1 length response it means all are okay
                 } else if (response.length() == 4) {
                     correcteffect();
+                    //sending the client
                     Intent i = new Intent(LoginActivity.this, ClientActivity.class);
                     i.putExtra("cid", cid);
                     startActivity(i);
@@ -275,16 +289,18 @@ public class LoginActivity extends AppCompatActivity {
                 @Override
                 public void onResponse(String response) {
                     if (response.length() > 0) {
+                        //correcteffect
                         correcteffect();
+                        //driver loggedin
                         Intent i = new Intent(LoginActivity.this, DriverActiviy2.class);
                         i.putExtra("did", DID);
                         i.putExtra("noplateno", response);
                         startActivity(i);
+                        //sending data to inbuilt database
                         Db.Insertcuser(response, "Driver", "Logged");
                         ISLOGGED_IN = true;
-
                         progressDialog.dismiss();
-                        //finish();
+
 
                     } else {
                         Toast.makeText(LoginActivity.this, response, Toast.LENGTH_SHORT).show();
@@ -308,7 +324,7 @@ public class LoginActivity extends AppCompatActivity {
             };
             request.setRetryPolicy(new DefaultRetryPolicy(30000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
             MySingleton.getmInstance(LoginActivity.this).addToRequestQueue(request);
-            //Toast.makeText(LoginActivity.this, user+"  "+pw, Toast.LENGTH_SHORT).show();
+
         }
         return DID;
     }
@@ -317,12 +333,16 @@ public class LoginActivity extends AppCompatActivity {
     public void onBackPressed() {
        moveTaskToBack(true);
     }
+
+
+    //error effect
     public void erroreffect(){
         ObjectAnimator colorAnim = ObjectAnimator.ofInt(tv, "textColor",
                 Color.RED, Color.BLACK);
         colorAnim.setEvaluator(new ArgbEvaluator());
         colorAnim.start();
     }
+    //correct effect
     public void correcteffect(){
         ObjectAnimator colorAnim = ObjectAnimator.ofInt(tv, "textColor",
                 Color.GREEN, Color.BLACK);

@@ -155,8 +155,7 @@ public class DriverPickupList_Fragment extends Fragment {
                     PrintWriter printWriter = new PrintWriter(writer);
                     error.printStackTrace(printWriter);
                     printWriter.flush();
-                    // String stackTrace = writer.toString();
-                    // error.printStackTrace( );
+
                 }
             }) {
                 @Override
@@ -166,12 +165,11 @@ public class DriverPickupList_Fragment extends Fragment {
                     Params.put("shift", shift);
                     Params.put("cid", cid);
 
-                    //Toast.makeText(DriverActivity.this, number+"getv3", Toast.LENGTH_SHORT).show();
                     return Params;
                 }
             };
             Mysingnalton.getInstance(getContext()).addTorequestque(stringRequest);
-            //Toast.makeText(DriverActivity.this, responsez+"getvum", Toast.LENGTH_SHORT).show();
+
 
 
         }

@@ -172,12 +172,10 @@ public class ClientActivity extends AppCompatActivity implements  Client_Inform_
                     Params.put("afternoon", afternoonStatus);
                     Params.put("cid", cid);
 
-                    //Toast.makeText(DriverActivity.this, number+"getv3", Toast.LENGTH_SHORT).show();
-                    return Params;
+                                        return Params;
                 }
             };
             Mysingnalton.getInstance(ClientActivity.this).addTorequestque(stringRequest);
-            //Toast.makeText(DriverActivity.this, responsez+"getvum", Toast.LENGTH_SHORT).show();
 
 
         }

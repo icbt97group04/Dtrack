@@ -112,12 +112,12 @@ public class DriverMakePayments extends AppCompatActivity {
                     Params.put("payemntID", payemntID);
 
 
-                    //Toast.makeText(DriverActivity.this, number+"getv3", Toast.LENGTH_SHORT).show();
+
                     return Params;
                 }
             };
             Mysingnalton.getInstance(DriverMakePayments.this).addTorequestque(stringRequest);
-            //Toast.makeText(DriverActivity.this, responsez+"getvum", Toast.LENGTH_SHORT).show();
+
 
 
         }

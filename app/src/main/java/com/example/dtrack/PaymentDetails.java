@@ -58,7 +58,7 @@ public class PaymentDetails extends AppCompatActivity {
             textViewpaidDate.setVisibility(View.GONE);
 
             textViewstatus.setText("Not Paid");
-            //btn_pay.setVisibility(View.GONE);
+
             btn_pay.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

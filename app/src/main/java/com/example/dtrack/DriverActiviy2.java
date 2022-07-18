@@ -60,14 +60,15 @@ public class DriverActiviy2 extends AppCompatActivity implements Driver_Current_
         }
     }
     public static String currentShift;
-
+//server url
     String server_url = "https://dtrack.live/Dbconfig.php";
-
     String noplateno;
     String DID;
+
     //location request
     LocationCallback locationCallBack;
     LocationRequest locationRequest;
+    //The main entry point for interacting with the Fused Location Provider
     FusedLocationProviderClient fusedLocationProviderClient;
     AlertDialog.Builder builder;
     private Handler mhandler = new Handler();
@@ -82,40 +83,31 @@ public class DriverActiviy2 extends AppCompatActivity implements Driver_Current_
     }
 
     //goolgle api serverices for location
-
-
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_driver_activiy2);
 
-
         try {
             shift = appOps.getShift();
         } catch (ParseException e) {
             e.printStackTrace();
         }
-
         Intent intent = getIntent();
         DID = intent.getStringExtra("did");
         noplateno =intent.getStringExtra("noplateno");
-
-
-
-        //Toast.makeText(DriverActiviy2.this, noplateno, Toast.LENGTH_SHORT).show();
-
-
         BottomNavigationView bottomnav = findViewById(R.id.driver_bottom_nav);
         bottomnav.setOnNavigationItemSelectedListener(navLister);
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new Driver_Current_Ride_Fragment()).commit();
 
-        //----- from driver activity -----
+        //----- from driver activity ------------------------------------------------------
 
         builder = new AlertDialog.Builder(DriverActiviy2.this);
 
         //setting properties for locatoinrequest
         locationRequest = LocationRequest.create();
+
         //location request update interval
         locationRequest.setInterval(1000 * 30);
         locationRequest.setFastestInterval(1000 * 5);
@@ -129,15 +121,14 @@ public class DriverActiviy2 extends AppCompatActivity implements Driver_Current_
         };
         locationRequest.setPriority(Priority.PRIORITY_HIGH_ACCURACY);
         updategps();
-
     }
 
-
+//updating gps
     private void updategps() {
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(DriverActiviy2.this);
 
         if (ActivityCompat.checkSelfPermission(DriverActiviy2.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            //user give permisson
+            //user gives permission
             fusedLocationProviderClient.getLastLocation().addOnSuccessListener(DriverActiviy2.this, new OnSuccessListener<Location>() {
                 @Override
                 public void onSuccess(Location location) {
@@ -145,13 +136,13 @@ public class DriverActiviy2 extends AppCompatActivity implements Driver_Current_
                 }
             });
         } else {
+            //checking build version
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-
                 requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 99);
             }
         }
     }
-
+//starting location update
     private void startlocationupdate() {
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -159,16 +150,17 @@ public class DriverActiviy2 extends AppCompatActivity implements Driver_Current_
             return;
         }
         fusedLocationProviderClient.requestLocationUpdates(locationRequest, locationCallBack, null);
-
+//executing updating function
         updating.run();
     }
 
+    //stopping location update
     private void stoplocationupdate() {
 
         fusedLocationProviderClient.removeLocationUpdates(locationCallBack);
         mhandler.removeCallbacks(updating);
     }
-
+//updating in a loop with a interval
     public Runnable updating = new Runnable() {
         @Override
         public void run() {
@@ -180,6 +172,7 @@ public class DriverActiviy2 extends AppCompatActivity implements Driver_Current_
         }
     };
 
+    //getting the vehicle number
     public String getvehiclenumber(String DID) {
         if (DID.isEmpty()) {
             Toast.makeText(DriverActiviy2.this, "Login Again", Toast.LENGTH_SHORT).show();
@@ -190,6 +183,7 @@ public class DriverActiviy2 extends AppCompatActivity implements Driver_Current_
                 @Override
                 public void onResponse(String response) {
                     if (response.length() > 0) {
+                        //sending it to insertdatabase
                         insertdatabase(response);
                     } else {
                         Toast.makeText(DriverActiviy2.this, response, Toast.LENGTH_SHORT).show();
@@ -216,6 +210,7 @@ public class DriverActiviy2 extends AppCompatActivity implements Driver_Current_
         return DID;
     }
 
+
     private void insertdatabase(String responsez) {
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(DriverActiviy2.this);
 
@@ -224,8 +219,10 @@ public class DriverActiviy2 extends AppCompatActivity implements Driver_Current_
             fusedLocationProviderClient.getLastLocation().addOnSuccessListener(DriverActiviy2.this, new OnSuccessListener<Location>() {
                 @Override
                 public void onSuccess(Location location) {
+                    //getting current location
                     String lat = (String.valueOf(location.getLatitude()));
                     String lon = (String.valueOf(location.getLongitude()));
+                    //sending it to the connection with latitude, longitute and driver number
                     connection(lat, lon, responsez);
                 }
             });
@@ -236,6 +233,7 @@ public class DriverActiviy2 extends AppCompatActivity implements Driver_Current_
         }
     }
 
+    //updating the database
     public void connection(String lat, String lon, String responsez) {
         {
             StringRequest stringRequest = new StringRequest(Request.Method.POST, server_url, new Response.Listener<String>() {
@@ -268,7 +266,7 @@ public class DriverActiviy2 extends AppCompatActivity implements Driver_Current_
         }
     }
 
-
+//fragment navigation
     private BottomNavigationView.OnNavigationItemSelectedListener navLister = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -289,6 +287,7 @@ public class DriverActiviy2 extends AppCompatActivity implements Driver_Current_
                     break;
 
             }
+            //fragment animation
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment).commit();
             return true;
         }
@@ -305,7 +304,6 @@ public class DriverActiviy2 extends AppCompatActivity implements Driver_Current_
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-
         if (item.getItemId() == R.id.driver_top_notifications) {
             Intent i = new Intent(this, ViewNotifications.class);
             i.putExtra("type", "Driver");
@@ -313,6 +311,4 @@ public class DriverActiviy2 extends AppCompatActivity implements Driver_Current_
         }
         return super.onOptionsItemSelected(item);
     }
-
-
 }
