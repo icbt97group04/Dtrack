@@ -6,6 +6,7 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -14,6 +15,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -36,6 +38,8 @@ public class LoginActivity extends AppCompatActivity {
     AlertDialog.Builder builder;
     public static String Email;
     public TextView tv;
+    public Boolean ISLOGGED_IN = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +60,8 @@ public class LoginActivity extends AppCompatActivity {
         builder = new AlertDialog.Builder(LoginActivity.this);
         Db = new DBHelper(this);
         Db.OpenDB();
+
+
 
         TextView howtoregister = findViewById(R.id.tvHowToRegister);
         howtoregister.setOnClickListener(new View.OnClickListener() {
@@ -265,6 +271,7 @@ public class LoginActivity extends AppCompatActivity {
             final ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this);
             String uRl = "https://dtrack.live/darcgetno.php";
             StringRequest request = new StringRequest(Request.Method.POST, uRl, new Response.Listener<String>() {
+                @RequiresApi(api = Build.VERSION_CODES.O)
                 @Override
                 public void onResponse(String response) {
                     if (response.length() > 0) {
@@ -274,8 +281,10 @@ public class LoginActivity extends AppCompatActivity {
                         i.putExtra("noplateno", response);
                         startActivity(i);
                         Db.Insertcuser(response, "Driver", "Logged");
+                        ISLOGGED_IN = true;
+
                         progressDialog.dismiss();
-                        finish();
+                        //finish();
 
                     } else {
                         Toast.makeText(LoginActivity.this, response, Toast.LENGTH_SHORT).show();
@@ -306,7 +315,7 @@ public class LoginActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        finish();
+       moveTaskToBack(true);
     }
     public void erroreffect(){
         ObjectAnimator colorAnim = ObjectAnimator.ofInt(tv, "textColor",

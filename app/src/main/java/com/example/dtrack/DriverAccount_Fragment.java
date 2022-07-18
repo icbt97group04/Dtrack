@@ -83,11 +83,10 @@ public class DriverAccount_Fragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                // ClientActivity  clientActivity = (ClientActivity)getActivity();
-                //clientActivity.IsLoggedIn = false;
-
 
                 startActivity(new Intent( getContext(),LoginActivity.class));
+
+
             }
         });
 

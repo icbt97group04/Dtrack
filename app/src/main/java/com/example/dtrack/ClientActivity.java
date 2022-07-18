@@ -37,6 +37,9 @@ public class ClientActivity extends AppCompatActivity implements  Client_Inform_
         public static String Email ;
         String shift;
         AppOps appOps;
+        public static Bundle mMyAppsBundle = new Bundle();
+
+
 
     public void setActionBarTitle(String title){
         ActionBar actionBar = getSupportActionBar();
@@ -49,6 +52,7 @@ public class ClientActivity extends AppCompatActivity implements  Client_Inform_
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_client);
+
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle("");
@@ -68,10 +72,7 @@ public class ClientActivity extends AppCompatActivity implements  Client_Inform_
 
         //Toast.makeText(ClientActivity.this, email2 , Toast.LENGTH_SHORT).show();
 
-        if (!IsLoggedIn) {
-            startActivity(new Intent(this, LoginActivity.class));
 
-        }
 
         BottomNavigationView bottomnav = findViewById(R.id.client_bottom_nav);
         bottomnav.setOnNavigationItemSelectedListener(navLister);

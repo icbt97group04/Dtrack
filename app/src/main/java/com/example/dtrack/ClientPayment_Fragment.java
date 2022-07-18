@@ -38,7 +38,6 @@ public class ClientPayment_Fragment extends Fragment {
         return inflater.inflate(R.layout.fragment_client_payment, container, false);
 
 
-
     }
 
     @Override
@@ -49,8 +48,7 @@ public class ClientPayment_Fragment extends Fragment {
         ((ClientActivity) getActivity()).setActionBarTitle("Payments");
 
 
-       // CLIENT_ID = getActivity().getIntent().getStringExtra("com.sample.MESSAGE");
-        CLIENT_ID = ((ClientActivity)getActivity()).CLIENT_ID;
+        CLIENT_ID = ((ClientActivity) getActivity()).CLIENT_ID;
 
         mRecyclerView = view.findViewById(R.id.recycler_view_payment);
         mRecyclerView.setHasFixedSize(true);
