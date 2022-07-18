@@ -30,11 +30,8 @@ import org.json.JSONObject;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -141,7 +138,7 @@ public class DriverDroplist_Fragment extends Fragment {
                 @Override
                 public void onResponse(String response) {
 
-                    Toast.makeText(getContext(), cid +"Details Updated", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Dropped", Toast.LENGTH_SHORT).show();
 
                 }
             }

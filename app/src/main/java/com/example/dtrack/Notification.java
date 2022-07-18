@@ -1,9 +1,5 @@
 package com.example.dtrack;
 
-import org.w3c.dom.Text;
-
-import java.time.format.DateTimeFormatter;
-
 public class Notification {
 
     String ID;

@@ -38,8 +38,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 

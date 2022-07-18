@@ -11,9 +11,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.dtrack.DropPick;
-import com.squareup.picasso.Picasso;
-
 import java.util.ArrayList;
 
 public class DropPickAdapter extends RecyclerView.Adapter<DropPickAdapter.ExampleViewHolder> {

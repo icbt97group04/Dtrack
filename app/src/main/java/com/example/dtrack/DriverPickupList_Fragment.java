@@ -41,7 +41,7 @@ public class DriverPickupList_Fragment extends Fragment {
     private DropPickAdapter mExampleAdapter;
     private ArrayList<DropPick> mExampleList;
     private RequestQueue mRequestQueue;
-    private String noplateNo = "NA-4598"; //get no plate no from the database
+    private String noplateNo; //get no plate no from the database
     String shift;
     AppOps appOps;
 
@@ -51,6 +51,7 @@ public class DriverPickupList_Fragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_driver_pickup_list, container, false);
+
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -59,6 +60,8 @@ public class DriverPickupList_Fragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         ((DriverActiviy2) getActivity()).setActionBarTitle("Pickup List");
+        noplateNo = ((DriverActiviy2)getActivity()).noplateno;
+       // Toast.makeText(getContext(),noplateNo,Toast.LENGTH_LONG).show();
 
         mRecyclerView = view.findViewById(R.id.driverPickuplist);
         mRecyclerView.setHasFixedSize(true);
@@ -74,13 +77,13 @@ public class DriverPickupList_Fragment extends Fragment {
         }
 
 
-        parseJSON();
+        parseJSON(noplateNo);
 
     }
 
-    private void parseJSON( ) {
+    private void parseJSON(String noplateN ) {
 
-        String url = "https://dtrack.live/generatepickupanddroparray.php?action=YES&numberplateid=" + noplateNo + "&shift=" + ((DriverActiviy2)getActivity()).shift;
+        String url = "https://dtrack.live/generatepickupanddroparray.php?action=YES&numberplateid=" + noplateN + "&shift=" + ((DriverActiviy2)getActivity()).shift;
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
@@ -140,7 +143,7 @@ public class DriverPickupList_Fragment extends Fragment {
                 @Override
                 public void onResponse(String response) {
 
-                    Toast.makeText(getContext(), cid + "Details Updated", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(),  "Picked", Toast.LENGTH_SHORT).show();
 
                 }
             }
