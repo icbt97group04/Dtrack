@@ -17,11 +17,11 @@ public class ContactServiceProvider extends AppCompatActivity {
         setContentView(R.layout.activity_contact_service_provider);
         String DriverID; // get client if from Database
 
-        String spName = "pavithra Hatharasinghe";
-        String spAddress = "Hell";
-        String spNumber = "0779316741"; //get driver mobile no form the database
+        String spName = "Ravindu Wickremesinghe";
+        String spAddress = "28/5 nugegoda sri lanka";
+        String spNumber = "0912258267"; //get driver mobile no form the database
         String spcallNumber = "tel:"+spNumber; //get driver mobile no form the database
-        String spEmail= "pavithrahatsin@gmail.com"; //get driver email form the database
+        String spEmail= "wickremesinghetravelers@gmail.com"; //get driver email form the database
 
         // declare buttons
         Button call = findViewById(R.id.btnCall);
