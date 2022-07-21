@@ -171,7 +171,7 @@ public class LoginActivity extends AppCompatActivity {
                     if (response.length() > 0) {
                         //sending the Driver id to getvehiclenumber
                         getvehiclenumber(response);
-
+                        progressDialog.dismiss();
 
                     } else {
                         Toast.makeText(LoginActivity.this, "Wrong Password", Toast.LENGTH_SHORT).show();
@@ -291,15 +291,16 @@ public class LoginActivity extends AppCompatActivity {
                     if (response.length() > 0) {
                         //correcteffect
                         correcteffect();
+
+                        //sending data to inbuilt database
+                        Db.Insertcuser(response, "Driver", "Logged");
+                        ISLOGGED_IN = true;
+                        progressDialog.dismiss();
                         //driver loggedin
                         Intent i = new Intent(LoginActivity.this, DriverActiviy2.class);
                         i.putExtra("did", DID);
                         i.putExtra("noplateno", response);
                         startActivity(i);
-                        //sending data to inbuilt database
-                        Db.Insertcuser(response, "Driver", "Logged");
-                        ISLOGGED_IN = true;
-                        progressDialog.dismiss();
 
 
                     } else {

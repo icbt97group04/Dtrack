@@ -46,6 +46,7 @@ public class ClientAccount_Fragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), ContatcDriver.class);
+                intent.putExtra("cid",CLIENT_ID);
                 startActivity(intent);
             }
         });

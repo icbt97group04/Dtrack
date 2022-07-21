@@ -6,12 +6,35 @@
     android:layout_height="match_parent"
     tools:context=".ContatcDriver">
 
+    <Button
+        android:id="@+id/btnEmail"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:text="Send email"
+        app:layout_constraintTop_toBottomOf="@+id/btnMessage"
+        tools:layout_editor_absoluteX="0dp" />
+
     <TextView
-        android:id="@+id/textView14"
+        android:id="@+id/textView13"
         android:layout_width="98dp"
         android:layout_height="37dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="32dp"
+        android:paddingLeft="10dp"
+        android:text="Name :"
+        android:textColor="#000000"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+    <TextView
+        android:id="@+id/textView14"
+        android:layout_width="114dp"
+        android:layout_height="38dp"
+        android:layout_marginLeft="10dp"
         android:layout_marginTop="96dp"
-        android:text="Address"
+        android:paddingLeft="10dp"
+        android:text="Address :"
         android:textColor="#000000"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,31 +44,14 @@
         android:id="@+id/textView16"
         android:layout_width="98dp"
         android:layout_height="37dp"
+        android:layout_marginLeft="10dp"
         android:layout_marginTop="160dp"
-        android:text="CellNO"
+        android:paddingLeft="10dp"
+        android:text="CellNO :"
         android:textColor="#000000"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
-
-    <TextView
-        android:id="@+id/textView13"
-        android:layout_width="98dp"
-        android:layout_height="37dp"
-        android:layout_marginTop="32dp"
-        android:text="Name"
-        android:textColor="#000000"
-        android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
-
-    <Button
-        android:id="@+id/btnEmail"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:text="Send email"
-        app:layout_constraintTop_toBottomOf="@+id/btnMessage"
-        tools:layout_editor_absoluteX="0dp" />
 
     <TextView
         android:id="@+id/tvDrivername"
