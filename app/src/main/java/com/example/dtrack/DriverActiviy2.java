@@ -239,7 +239,7 @@ public class DriverActiviy2 extends AppCompatActivity implements Driver_Current_
             StringRequest stringRequest = new StringRequest(Request.Method.POST, server_url, new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
-                    Toast.makeText(DriverActiviy2.this, "Tracking...", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(DriverActiviy2.this, "Tracking...", Toast.LENGTH_SHORT).show();
                 }
             }
                     , new Response.ErrorListener() {
