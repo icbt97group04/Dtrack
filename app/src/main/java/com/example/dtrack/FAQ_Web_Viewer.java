@@ -14,7 +14,7 @@ public class FAQ_Web_Viewer extends AppCompatActivity {
         setContentView(R.layout.activity_faq_web_viewer);
 
         WebView myWebView = (WebView) findViewById(R.id.faqwebview);
-        myWebView.loadUrl("https://dtrack.live/");
+        myWebView.loadUrl("https://dtrack.live/faq.php");
 
         // Force links and redirects to open in the WebView instead of in a browser
         myWebView.setWebViewClient(new WebViewClient());
