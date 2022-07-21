@@ -21,9 +21,9 @@
         android:id="@+id/tvDrivername"
         android:layout_width="217dp"
         android:layout_height="39dp"
-        android:textSize="20sp"
         android:layout_marginTop="32dp"
         android:text="Service provider name"
+        android:textSize="16sp"
 
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.562"
@@ -95,21 +95,23 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/textView9"
         android:layout_width="98dp"
         android:layout_height="37dp"
-        android:layout_marginTop="32dp"
-        android:text="Name"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="92dp"
+        android:text="Address"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
     <TextView
-        android:id="@+id/textView9"
+        android:id="@+id/textView4"
         android:layout_width="98dp"
         android:layout_height="37dp"
-        android:layout_marginTop="96dp"
-        android:text="Address"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="28dp"
+        android:text="Name"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
@@ -118,7 +120,8 @@
         android:id="@+id/textView10"
         android:layout_width="98dp"
         android:layout_height="37dp"
-        android:layout_marginTop="160dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="156dp"
         android:text="CellNO"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
