@@ -41,7 +41,7 @@ public class DriverDroplist_Fragment extends Fragment {
     private DropPickAdapter mExampleAdapter;
     private ArrayList<DropPick> mExampleList;
     private RequestQueue mRequestQueue;
-    private String noplateNo = "NA-4598"; //get no plate no from the database
+    private String noplateNo; //get no plate no from the database
     String shift ;
     AppOps appOps;
 
@@ -55,7 +55,7 @@ public class DriverDroplist_Fragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ((DriverActiviy2) getActivity()).setActionBarTitle("Drop List");
-
+        noplateNo = ((DriverActiviy2)getActivity()).noplateno;
         mRecyclerView = view.findViewById(R.id.driverdroplist);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -70,13 +70,13 @@ public class DriverDroplist_Fragment extends Fragment {
         }
 
 
-        parseJSON();
+        parseJSON(noplateNo);
 
 
     }
-    private void parseJSON( ) {
+    private void parseJSON( String noplateN) {
 
-        String url = "https://dtrack.live/generatepickupanddroparray.php?action=Traveling&numberplateid="+noplateNo+"&shift=" +((DriverActiviy2)getActivity()).shift;
+        String url = "https://dtrack.live/generatepickupanddroparray.php?action=Traveling&numberplateid="+noplateN+"&shift=" +((DriverActiviy2)getActivity()).shift;
 
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
